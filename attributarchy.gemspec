@@ -17,4 +17,5 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'rails', '~> 3.2.14'
   s.add_dependency 'rspec-rails', '~> 2.14.0'
+  s.add_dependency 'fakefs'
 end

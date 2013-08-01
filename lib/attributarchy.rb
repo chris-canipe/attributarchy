@@ -1,3 +1,4 @@
+require 'attributarchy/exceptions'
 require 'attributarchy/controller_methods'
 
 module Attributarchy
