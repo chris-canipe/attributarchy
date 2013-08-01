@@ -39,4 +39,13 @@ RSpec.configure do |config|
   config.order = "random"
 
   config.include FakeFS::SpecHelpers, fakefs: true
+
+  # Per https://github.com/defunkt/fakefs/issues/137
+  config.before do
+    class ::FakeFS::File
+      def self.binread(file)
+        File.open(file, 'rb') { |f| f.read }
+      end
+    end
+  end
 end
