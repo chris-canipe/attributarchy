@@ -27,16 +27,18 @@ module Attributarchy
       self.attributarchy_configuration = attributes
     end
 
-    # TODO: Refactor partial directory.
     private
       def partial_directory
-        "#{view_context.view_paths.first}/#{controller_name}/attributarchy"
+        "#{controller_name}/attributarchy"
+      end
+      def partial_directory_path
+        "#{view_context.view_paths.first}/#{partial_directory}"
       end
       def partial_directory_exists?
-        File.directory?(partial_directory)
+        File.directory?(partial_directory_path)
       end
       def partial_exists?(partial)
-        lookup_context.template_exists?(partial.to_s, ["#{controller_name}/attributarchy"], true)
+        lookup_context.template_exists?(partial.to_s, [partial_directory], true)
       end
     #/private
 
