@@ -9,7 +9,6 @@ module Attributarchy
 
     subject { DummyController.new }
     let(:valid_attributarchy) { [:attr1, :attr2, :attr3] }
-    let(:partial_directory) { "#{subject.view_context.view_paths.first}/#{subject.controller_name}/attributarchy" }
 
     describe '#has_attributarchy', fakefs: true do
 
@@ -33,7 +32,7 @@ module Attributarchy
 
         context 'when the attributarchy partial directory exists' do
           before :each  do
-            FileUtils.mkdir_p(partial_directory)
+            FileUtils.mkdir_p(subject.partial_directory_path)
           end
           it 'does not raise a MissingDirectory exception' do
             expect { subject.has_attributarchy(valid_attributarchy) }.to_not raise_error(MissingDirectory)
@@ -48,7 +47,7 @@ module Attributarchy
           context 'when no partials are missing' do
             before :each do
               valid_attributarchy.each do |a|
-                FileUtils.touch "#{partial_directory}/_#{a}.html.erb"
+                FileUtils.touch "#{subject.partial_directory_path}/_#{a}.html.erb"
               end
               # Prevent previous lookups from reporting a partial as non-existent.
               ActionView::Resolver.caching = false
@@ -61,5 +60,39 @@ module Attributarchy
         end
       end
     end
+
+    describe '#partial_directory' do
+      it 'should be the controller name/attributarchy' do
+        subject.partial_directory.should == "#{subject.controller_name}/attributarchy"
+      end
+    end
+
+    describe '#partial_directory_path' do
+      it 'should be the first view path (for now)/partial_directory' do
+        subject.partial_directory_path.should == "#{subject.view_context.view_paths.first}/#{subject.partial_directory}"
+      end
+    end
+
+    describe '#partial_directory_exists?', fakefs: true do
+      it 'should return false if the directory does not exist' do
+        (subject.partial_directory_exists?).should be_false
+      end
+      it 'should return true if the directory exists' do
+        FileUtils.mkdir_p(subject.partial_directory_path)
+        (subject.partial_directory_exists?).should be_true
+      end
+    end
+
+    describe '#partial_exists?', fakefs: true do
+      it 'should return false if the partial does not exist' do
+        (subject.partial_exists?(:partial)).should be_true
+      end
+      it 'should return true if the partial exists' do
+        FileUtils.mkdir_p(subject.partial_directory_path)
+        FileUtils.touch "#{subject.partial_directory_path}/_partial.html.erb"
+        (subject.partial_exists?(:partial)).should be_true
+      end
+    end
+
   end
 end
