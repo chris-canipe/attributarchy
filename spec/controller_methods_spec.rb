@@ -85,7 +85,7 @@ module Attributarchy
 
     describe '#partial_exists?', fakefs: true do
       it 'should return false if the partial does not exist' do
-        (subject.partial_exists?(:partial)).should be_true
+        (subject.partial_exists?(:partial)).should be_false
       end
       it 'should return true if the partial exists' do
         FileUtils.mkdir_p(subject.partial_directory_path)
