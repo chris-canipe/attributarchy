@@ -10,6 +10,11 @@ module Attributarchy
     subject { DummyController.new }
     let(:valid_attributarchy) { [:attr1, :attr2, :attr3] }
 
+    before :each do
+      # Prevent previous lookups from reporting a partial as non-existent.
+      ActionView::Resolver.caching = false
+    end
+
     describe '#has_attributarchy' do
 
       context 'when the arguments are invalid' do
@@ -49,8 +54,6 @@ module Attributarchy
               valid_attributarchy.each do |a|
                 FileUtils.touch "#{subject.partial_directory_path}/_#{a}.html.erb"
               end
-              # Prevent previous lookups from reporting a partial as non-existent.
-              ActionView::Resolver.caching = false
             end
             it 'sets the attributarchy' do
               subject.has_attributarchy(valid_attributarchy)
