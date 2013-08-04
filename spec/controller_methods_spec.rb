@@ -36,9 +36,11 @@ module Attributarchy
         end
 
         context 'when the attributarchy partial directory exists' do
+
           before :each  do
             FileUtils.mkdir_p(subject.partial_directory_path)
           end
+
           it 'does not raise a MissingDirectory exception' do
             expect { subject.has_attributarchy(valid_attributarchy) }.to_not raise_error(MissingDirectory)
           end
