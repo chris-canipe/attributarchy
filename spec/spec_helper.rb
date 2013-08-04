@@ -38,6 +38,8 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = "random"
 
+  config.include FakeFS::SpecHelpers
+
   # Per https://github.com/defunkt/fakefs/issues/137
   config.before do
     class ::FakeFS::File
@@ -46,8 +48,4 @@ RSpec.configure do |config|
       end
     end
   end
-end
-
-Spec::Runner.configure do |config|
-  config.include FakeFS::SpecHelpers
 end
