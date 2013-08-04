@@ -5,12 +5,12 @@ class DummyController < ActionController::Base
 end
 
 module Attributarchy
-  describe ControllerMethods do
+  describe ControllerMethods, use_fakefs: true do
 
     subject { DummyController.new }
     let(:valid_attributarchy) { [:attr1, :attr2, :attr3] }
 
-    describe '#has_attributarchy', fakefs: true do
+    describe '#has_attributarchy' do
 
       context 'when the arguments are invalid' do
         it 'raises ArgumentError exceptions' do
@@ -73,7 +73,7 @@ module Attributarchy
       end
     end
 
-    describe '#partial_directory_exists?', fakefs: true do
+    describe '#partial_directory_exists?' do
       it 'should return false if the directory does not exist' do
         (subject.partial_directory_exists?).should be_false
       end
@@ -83,7 +83,7 @@ module Attributarchy
       end
     end
 
-    describe '#partial_exists?', fakefs: true do
+    describe '#partial_exists?' do
       it 'should return false if the partial does not exist' do
         (subject.partial_exists?(:partial)).should be_false
       end
