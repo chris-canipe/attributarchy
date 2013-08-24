@@ -38,15 +38,17 @@ module Attributarchy
 
         it 'renders one group' do
           (helper.build_attributarchy(attributarchy_configuration, data)).should == <<-OUTPUT.gsub(/^\s+/, '')
-            Country_Value=United States
-            Country_Data=
-            United States, Colorado, Denver
-            United States, Colorado, Lakewood
-            United States, Illinois, Chicago
-            United States, Illinois, Westmont
-            United States, North Carolina, Charlotte
-            United States, North Carolina, Asheville
-            Country_Level=0
+            <div class="attributarchy country-container">
+              Country_Value=United States
+              Country_Data=
+              United States, Colorado, Denver
+              United States, Colorado, Lakewood
+              United States, Illinois, Chicago
+              United States, Illinois, Westmont
+              United States, North Carolina, Charlotte
+              United States, North Carolina, Asheville
+              Country_Level=0
+            </div>
           OUTPUT
         end
 
@@ -61,30 +63,38 @@ module Attributarchy
 
         it 'renders two groups' do
           (helper.build_attributarchy(attributarchy_configuration, data)).should == <<-OUTPUT.gsub(/^\s+/, '')
-            Country_Value=United States
-            Country_Data=
-            United States, Colorado, Denver
-            United States, Colorado, Lakewood
-            United States, Illinois, Chicago
-            United States, Illinois, Westmont
-            United States, North Carolina, Charlotte
-            United States, North Carolina, Asheville
-            Country_Level=0
-            State_Value=Colorado
-            State_Data=
-            United States, Colorado, Denver
-            United States, Colorado, Lakewood
-            State_Level=1
-            State_Value=Illinois
-            State_Data=
-            United States, Illinois, Chicago
-            United States, Illinois, Westmont
-            State_Level=1
-            State_Value=North Carolina
-            State_Data=
-            United States, North Carolina, Charlotte
-            United States, North Carolina, Asheville
-            State_Level=1
+            <div class="attributarchy country-container">
+              Country_Value=United States
+              Country_Data=
+              United States, Colorado, Denver
+              United States, Colorado, Lakewood
+              United States, Illinois, Chicago
+              United States, Illinois, Westmont
+              United States, North Carolina, Charlotte
+              United States, North Carolina, Asheville
+              Country_Level=0
+              <div class="attributarchy state-container">
+                State_Value=Colorado
+                State_Data=
+                United States, Colorado, Denver
+                United States, Colorado, Lakewood
+                State_Level=1
+              </div>
+              <div class="attributarchy state-container">
+                State_Value=Illinois
+                State_Data=
+                United States, Illinois, Chicago
+                United States, Illinois, Westmont
+                State_Level=1
+              </div>
+              <div class="attributarchy state-container">
+                State_Value=North Carolina
+                State_Data=
+                United States, North Carolina, Charlotte
+                United States, North Carolina, Asheville
+                State_Level=1
+              </div>
+            </div>
           OUTPUT
         end
 

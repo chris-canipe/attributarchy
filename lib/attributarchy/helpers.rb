@@ -5,6 +5,7 @@ module Attributarchy
       current_level = attributarchy[:attributes][level_index]
       data.group_by(&current_level).each_with_index do |(group_value, group_data), index|
         partial = "#{attributarchy[:partial_directory]}/#{current_level}"
+        output << %{<div class="attributarchy #{current_level}-container">\n}
         output << (
           render partial: partial, locals: {
             group_data: group_data,
@@ -15,8 +16,9 @@ module Attributarchy
         if level_index < attributarchy[:attributes].count - 1
           output << build_attributarchy(attributarchy, data, level_index + 1)
         end
+        output << "</div>\n"
       end
-      return output
+      output
     end
   end
 end
