@@ -1,0 +1,6 @@
+Country_Value=<%= group_value %>
+Country_Data=<%- group_data.each do |gd| -%>
+<%= gd.values.join(', ') -%>
+<% end %>
+
+Country_Level=<%= group_level %>
