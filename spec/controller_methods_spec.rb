@@ -59,7 +59,10 @@ module Attributarchy
             end
             it 'sets the attributarchy' do
               subject.has_attributarchy(valid_attributarchy)
-              subject.attributarchy_configuration.should == valid_attributarchy
+              subject.attributarchy_configuration.should == {
+                attributes: valid_attributarchy,
+                partial_directory: 'dummy/attributarchy'
+              }
             end
           end
         end

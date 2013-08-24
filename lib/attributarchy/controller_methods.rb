@@ -24,7 +24,10 @@ module Attributarchy
         raise MissingPartial unless partial_exists?(a)
       end
 
-      self.attributarchy_configuration = attributes
+      self.attributarchy_configuration = {
+        attributes: attributes,
+        partial_directory: partial_directory
+      }
     end
 
     def partial_directory
