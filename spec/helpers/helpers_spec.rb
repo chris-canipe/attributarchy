@@ -37,17 +37,27 @@ module Attributarchy
         }}
 
         it 'renders one group' do
-          (helper.build_attributarchy(attributarchy_configuration, data)).should == <<-OUTPUT.gsub(/^\s+/, '')
+          # TODO: Clean up and use tidyer.
+          (helper.build_attributarchy(attributarchy_configuration, data)).should == <<-OUTPUT.gsub(/^\s{12}/, '')
             <div class="attributarchy country-container">
-              Country_Value=United States
-              Country_Data=
-              United States, Colorado, Denver
-              United States, Colorado, Lakewood
-              United States, Illinois, Chicago
-              United States, Illinois, Westmont
-              United States, North Carolina, Charlotte
-              United States, North Carolina, Asheville
-              Country_Level=0
+            <section class="country">
+              <header>
+                <h1>United States</h1>
+              </header>
+              <div class="data">
+                <ul>
+                  <li>United States, Colorado, Denver</li>
+                  <li>United States, Colorado, Lakewood</li>
+                  <li>United States, Illinois, Chicago</li>
+                  <li>United States, Illinois, Westmont</li>
+                  <li>United States, North Carolina, Charlotte</li>
+                  <li>United States, North Carolina, Asheville</li>
+                </ul>
+              </div>
+              <div class="level">
+                0
+              </div>
+            </section>
             </div>
           OUTPUT
         end
@@ -62,38 +72,74 @@ module Attributarchy
         }}
 
         it 'renders two groups' do
-          (helper.build_attributarchy(attributarchy_configuration, data)).should == <<-OUTPUT.gsub(/^\s+/, '')
+          (helper.build_attributarchy(attributarchy_configuration, data)).should == <<-OUTPUT.gsub(/^\s{12}/, '')
             <div class="attributarchy country-container">
-              Country_Value=United States
-              Country_Data=
-              United States, Colorado, Denver
-              United States, Colorado, Lakewood
-              United States, Illinois, Chicago
-              United States, Illinois, Westmont
-              United States, North Carolina, Charlotte
-              United States, North Carolina, Asheville
-              Country_Level=0
-              <div class="attributarchy state-container">
-                State_Value=Colorado
-                State_Data=
-                United States, Colorado, Denver
-                United States, Colorado, Lakewood
-                State_Level=1
+            <section class="country">
+              <header>
+                <h1>United States</h1>
+              </header>
+              <div class="data">
+                <ul>
+                  <li>United States, Colorado, Denver</li>
+                  <li>United States, Colorado, Lakewood</li>
+                  <li>United States, Illinois, Chicago</li>
+                  <li>United States, Illinois, Westmont</li>
+                  <li>United States, North Carolina, Charlotte</li>
+                  <li>United States, North Carolina, Asheville</li>
+                </ul>
               </div>
-              <div class="attributarchy state-container">
-                State_Value=Illinois
-                State_Data=
-                United States, Illinois, Chicago
-                United States, Illinois, Westmont
-                State_Level=1
+              <div class="level">
+                0
               </div>
-              <div class="attributarchy state-container">
-                State_Value=North Carolina
-                State_Data=
-                United States, North Carolina, Charlotte
-                United States, North Carolina, Asheville
-                State_Level=1
+            </section>
+            <div class="attributarchy state-container">
+            <section class="state">
+              <header>
+                <h1>Colorado</h1>
+              </header>
+              <div class="data">
+                <ul>
+                  <li>United States, Colorado, Denver</li>
+                  <li>United States, Colorado, Lakewood</li>
+                </ul>
               </div>
+              <div class="level">
+                1
+              </div>
+            </section>
+            </div>
+            <div class="attributarchy state-container">
+            <section class="state">
+              <header>
+                <h1>Illinois</h1>
+              </header>
+              <div class="data">
+                <ul>
+                  <li>United States, Illinois, Chicago</li>
+                  <li>United States, Illinois, Westmont</li>
+                </ul>
+              </div>
+              <div class="level">
+                1
+              </div>
+            </section>
+            </div>
+            <div class="attributarchy state-container">
+            <section class="state">
+              <header>
+                <h1>North Carolina</h1>
+              </header>
+              <div class="data">
+                <ul>
+                  <li>United States, North Carolina, Charlotte</li>
+                  <li>United States, North Carolina, Asheville</li>
+                </ul>
+              </div>
+              <div class="level">
+                1
+              </div>
+            </section>
+            </div>
             </div>
           OUTPUT
         end

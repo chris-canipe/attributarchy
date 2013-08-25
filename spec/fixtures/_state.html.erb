@@ -1,6 +1,15 @@
-State_Value=<%= group_value %>
-State_Data=<%- group_data.each do |gd| -%>
-<%= gd.values.join(', ') -%>
-<% end %>
-
-State_Level=<%= group_level %>
+<section class="state">
+  <header>
+    <h1><%= group_value %></h1>
+  </header>
+  <div class="data">
+    <ul>
+    <%- group_data.each do |gd| -%>
+      <li><%= gd.values.join(', ') -%></li>
+    <% end %>
+    </ul>
+  </div>
+  <div class="level">
+    <%= group_level %>
+  </div>
+</section>

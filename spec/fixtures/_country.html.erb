@@ -1,6 +1,15 @@
-Country_Value=<%= group_value %>
-Country_Data=<%- group_data.each do |gd| -%>
-<%= gd.values.join(', ') -%>
-<% end %>
-
-Country_Level=<%= group_level %>
+<section class="country">
+  <header>
+    <h1><%= group_value %></h1>
+  </header>
+  <div class="data">
+    <ul>
+    <%- group_data.each do |gd| -%>
+      <li><%= gd.values.join(', ') -%></li>
+    <% end %>
+    </ul>
+  </div>
+  <div class="level">
+    <%= group_level %>
+  </div>
+</section>
