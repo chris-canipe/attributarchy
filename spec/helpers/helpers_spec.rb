@@ -6,6 +6,12 @@ end
 
 AttributarchyStruct = Struct.new(:country, :state, :city)
 
+def html_tidy(html)
+  html.
+    gsub(/\A\s+|\s+\z/,'').
+    gsub(/>[^<]+/,'>')
+end
+
 module Attributarchy
   describe Helpers do
 
@@ -37,29 +43,31 @@ module Attributarchy
         }}
 
         it 'renders one group' do
-          # TODO: Clean up and use tidyer.
-          (helper.build_attributarchy(attributarchy_configuration, data)).should == <<-OUTPUT.gsub(/^\s{12}/, '')
+          output = html_tidy(helper.build_attributarchy(attributarchy_configuration, data))
+          expectation = html_tidy(<<-EXPECTATION
             <div class="attributarchy country-container">
-            <section class="country">
-              <header>
-                <h1>United States</h1>
-              </header>
-              <div class="data">
-                <ul>
-                  <li>United States, Colorado, Denver</li>
-                  <li>United States, Colorado, Lakewood</li>
-                  <li>United States, Illinois, Chicago</li>
-                  <li>United States, Illinois, Westmont</li>
-                  <li>United States, North Carolina, Charlotte</li>
-                  <li>United States, North Carolina, Asheville</li>
-                </ul>
-              </div>
-              <div class="level">
-                0
-              </div>
-            </section>
+              <section class="country">
+                <header>
+                  <h1>United States</h1>
+                </header>
+                <div class="data">
+                  <ul>
+                    <li>United States, Colorado, Denver</li>
+                    <li>United States, Colorado, Lakewood</li>
+                    <li>United States, Illinois, Chicago</li>
+                    <li>United States, Illinois, Westmont</li>
+                    <li>United States, North Carolina, Charlotte</li>
+                    <li>United States, North Carolina, Asheville</li>
+                  </ul>
+                </div>
+                <div class="level">
+                  0
+                </div>
+              </section>
             </div>
-          OUTPUT
+            EXPECTATION
+          )
+          output.should eq(expectation)
         end
 
       end
@@ -72,76 +80,79 @@ module Attributarchy
         }}
 
         it 'renders two groups' do
-          (helper.build_attributarchy(attributarchy_configuration, data)).should == <<-OUTPUT.gsub(/^\s{12}/, '')
+          output = html_tidy(helper.build_attributarchy(attributarchy_configuration, data))
+          expectation = html_tidy(<<-EXPECTATION
             <div class="attributarchy country-container">
-            <section class="country">
-              <header>
-                <h1>United States</h1>
-              </header>
-              <div class="data">
-                <ul>
-                  <li>United States, Colorado, Denver</li>
-                  <li>United States, Colorado, Lakewood</li>
-                  <li>United States, Illinois, Chicago</li>
-                  <li>United States, Illinois, Westmont</li>
-                  <li>United States, North Carolina, Charlotte</li>
-                  <li>United States, North Carolina, Asheville</li>
-                </ul>
+              <section class="country">
+                <header>
+                  <h1>United States</h1>
+                </header>
+                <div class="data">
+                  <ul>
+                    <li>United States, Colorado, Denver</li>
+                    <li>United States, Colorado, Lakewood</li>
+                    <li>United States, Illinois, Chicago</li>
+                    <li>United States, Illinois, Westmont</li>
+                    <li>United States, North Carolina, Charlotte</li>
+                    <li>United States, North Carolina, Asheville</li>
+                  </ul>
+                </div>
+                <div class="level">
+                  0
+                </div>
+              </section>
+              <div class="attributarchy state-container">
+                <section class="state">
+                  <header>
+                    <h1>Colorado</h1>
+                  </header>
+                  <div class="data">
+                    <ul>
+                      <li>United States, Colorado, Denver</li>
+                      <li>United States, Colorado, Lakewood</li>
+                    </ul>
+                  </div>
+                  <div class="level">
+                    1
+                  </div>
+                </section>
               </div>
-              <div class="level">
-                0
+              <div class="attributarchy state-container">
+                <section class="state">
+                  <header>
+                    <h1>Illinois</h1>
+                  </header>
+                  <div class="data">
+                    <ul>
+                      <li>United States, Illinois, Chicago</li>
+                      <li>United States, Illinois, Westmont</li>
+                    </ul>
+                  </div>
+                  <div class="level">
+                    1
+                  </div>
+                </section>
               </div>
-            </section>
-            <div class="attributarchy state-container">
-            <section class="state">
-              <header>
-                <h1>Colorado</h1>
-              </header>
-              <div class="data">
-                <ul>
-                  <li>United States, Colorado, Denver</li>
-                  <li>United States, Colorado, Lakewood</li>
-                </ul>
+              <div class="attributarchy state-container">
+                <section class="state">
+                  <header>
+                    <h1>North Carolina</h1>
+                  </header>
+                  <div class="data">
+                    <ul>
+                      <li>United States, North Carolina, Charlotte</li>
+                      <li>United States, North Carolina, Asheville</li>
+                    </ul>
+                  </div>
+                  <div class="level">
+                    1
+                  </div>
+                </section>
               </div>
-              <div class="level">
-                1
-              </div>
-            </section>
             </div>
-            <div class="attributarchy state-container">
-            <section class="state">
-              <header>
-                <h1>Illinois</h1>
-              </header>
-              <div class="data">
-                <ul>
-                  <li>United States, Illinois, Chicago</li>
-                  <li>United States, Illinois, Westmont</li>
-                </ul>
-              </div>
-              <div class="level">
-                1
-              </div>
-            </section>
-            </div>
-            <div class="attributarchy state-container">
-            <section class="state">
-              <header>
-                <h1>North Carolina</h1>
-              </header>
-              <div class="data">
-                <ul>
-                  <li>United States, North Carolina, Charlotte</li>
-                  <li>United States, North Carolina, Asheville</li>
-                </ul>
-              </div>
-              <div class="level">
-                1
-              </div>
-            </section>
-            </div>
-            </div>
-          OUTPUT
+            EXPECTATION
+          )
+          output.should eq(expectation)
         end
 
       end
