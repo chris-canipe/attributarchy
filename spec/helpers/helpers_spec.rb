@@ -43,7 +43,7 @@ module Attributarchy
             partial_directory: 'dummy/attributarchy'
         }}
         let(:output) { html_tidy(helper.build_attributarchy(attributarchy_configuration, data)) }
-        let(:expectation) { html_tidy(File.read("#{subject.partial_directory_path}/one_attributarchy.html")) }
+        let(:expected_output) { html_tidy(File.read("#{subject.partial_directory_path}/one_attributarchy.html")) }
 
         it 'should be wrapped in an attributarchy-classed div' do
           output.should start_with '<div class="attributarchy">'
@@ -59,7 +59,7 @@ module Attributarchy
         end
 
         it 'renders one group' do
-          output.should eq(expectation)
+          output.should eq(expected_output)
         end
 
       end
@@ -71,7 +71,7 @@ module Attributarchy
             partial_directory: 'dummy/attributarchy'
         }}
         let(:output) { html_tidy(helper.build_attributarchy(attributarchy_configuration, data)) }
-        let(:expectation) { html_tidy(File.read("#{subject.partial_directory_path}/two_attributarchies.html")) }
+        let(:expected_output) { html_tidy(File.read("#{subject.partial_directory_path}/two_attributarchies.html")) }
 
         it 'should be wrapped in an attributarchy-classed div' do
           output.should start_with '<div class="attributarchy">'
@@ -87,7 +87,7 @@ module Attributarchy
         end
 
         it 'renders two groups' do
-          output.should eq(expectation)
+          output.should eq(expected_output)
         end
 
       end
