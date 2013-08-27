@@ -36,7 +36,7 @@ module Attributarchy
         end
       end
 
-      context 'with one group (country)' do
+      context 'with one attributarchy (country)' do
 
         let(:attributarchy_configuration) {{
             attributes: [:country],
@@ -90,7 +90,7 @@ module Attributarchy
 
       end
 
-      context 'with two groups (country, state)' do
+      context 'with two attributarchies (country, state)' do
 
         let(:attributarchy_configuration) {{
             attributes: [:country, :state],
