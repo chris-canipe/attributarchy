@@ -31,7 +31,7 @@ module Attributarchy
       before :each do
         FileUtils.mkdir_p(subject.partial_directory_path)
         FakeFS::FileSystem.clone('spec/fixtures')
-        Dir.glob('spec/fixtures/*') do |f|
+        Dir.glob('spec/fixtures/*/*') do |f|
           FileUtils.cp f, "#{subject.partial_directory_path}/#{File.basename f}"
         end
       end
@@ -43,33 +43,7 @@ module Attributarchy
             partial_directory: 'dummy/attributarchy'
         }}
         let(:output) { html_tidy(helper.build_attributarchy(attributarchy_configuration, data)) }
-        let(:expectation) {
-          html_tidy(<<-EXPECTATION
-              <div class="attributarchy">
-                <div class="country-container">
-                  <section class="country">
-                    <header>
-                      <h1>United States</h1>
-                    </header>
-                    <div class="data">
-                      <ul>
-                        <li>United States, Colorado, Denver</li>
-                        <li>United States, Colorado, Lakewood</li>
-                        <li>United States, Illinois, Chicago</li>
-                        <li>United States, Illinois, Westmont</li>
-                        <li>United States, North Carolina, Charlotte</li>
-                        <li>United States, North Carolina, Asheville</li>
-                      </ul>
-                    </div>
-                    <div class="level">
-                      0
-                    </div>
-                  </section>
-                </div>
-              </div>
-              EXPECTATION
-            )
-        }
+        let(:expectation) { html_tidy(File.read("#{subject.partial_directory_path}/one_attributarchy.html")) }
 
         it 'should be wrapped in an attributarchy-classed div' do
           output.should start_with '<div class="attributarchy">'
@@ -97,81 +71,7 @@ module Attributarchy
             partial_directory: 'dummy/attributarchy'
         }}
         let(:output) { html_tidy(helper.build_attributarchy(attributarchy_configuration, data)) }
-        let(:expectation) {
-          html_tidy(<<-EXPECTATION
-              <div class="attributarchy">
-                <div class="country-container">
-                  <section class="country">
-                    <header>
-                      <h1>United States</h1>
-                    </header>
-                    <div class="data">
-                      <ul>
-                        <li>United States, Colorado, Denver</li>
-                        <li>United States, Colorado, Lakewood</li>
-                        <li>United States, Illinois, Chicago</li>
-                        <li>United States, Illinois, Westmont</li>
-                        <li>United States, North Carolina, Charlotte</li>
-                        <li>United States, North Carolina, Asheville</li>
-                      </ul>
-                    </div>
-                    <div class="level">
-                      0
-                    </div>
-                  </section>
-                  <div class="state-container">
-                    <section class="state">
-                      <header>
-                        <h1>Colorado</h1>
-                      </header>
-                      <div class="data">
-                        <ul>
-                          <li>United States, Colorado, Denver</li>
-                          <li>United States, Colorado, Lakewood</li>
-                        </ul>
-                      </div>
-                      <div class="level">
-                        1
-                      </div>
-                    </section>
-                  </div>
-                  <div class="state-container">
-                    <section class="state">
-                      <header>
-                        <h1>Illinois</h1>
-                      </header>
-                      <div class="data">
-                        <ul>
-                          <li>United States, Illinois, Chicago</li>
-                          <li>United States, Illinois, Westmont</li>
-                        </ul>
-                      </div>
-                      <div class="level">
-                        1
-                      </div>
-                    </section>
-                  </div>
-                  <div class="state-container">
-                    <section class="state">
-                      <header>
-                        <h1>North Carolina</h1>
-                      </header>
-                      <div class="data">
-                        <ul>
-                          <li>United States, North Carolina, Charlotte</li>
-                          <li>United States, North Carolina, Asheville</li>
-                        </ul>
-                      </div>
-                      <div class="level">
-                        1
-                      </div>
-                    </section>
-                  </div>
-                </div>
-              </div>
-              EXPECTATION
-            )
-        }
+        let(:expectation) { html_tidy(File.read("#{subject.partial_directory_path}/two_attributarchies.html")) }
 
         it 'should be wrapped in an attributarchy-classed div' do
           output.should start_with '<div class="attributarchy">'
