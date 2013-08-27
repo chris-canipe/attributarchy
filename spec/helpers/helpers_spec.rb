@@ -58,7 +58,7 @@ module Attributarchy
           output.scan('<div class="state-container">').length.should eq(0)
         end
 
-        it 'renders one group' do
+        it 'renders one attributarchy' do
           output.should eq(expected_output)
         end
 
@@ -86,7 +86,7 @@ module Attributarchy
           output.scan('<div class="state-container">').length.should eq(3)
         end
 
-        it 'renders two groups' do
+        it 'renders two attributarchies' do
           output.should eq(expected_output)
         end
 
