@@ -6,7 +6,7 @@ An attribute-driven hierarchy builder for Rails views.
 
 **You do this:**
 
-1. Configure a hierarchy (or hierarchies, eventually) of attributes
+1. Configure a hierarchy (or hierarchies) of attributes
 1. Create partials for each attribute
 1. Feed this duo some data
 
