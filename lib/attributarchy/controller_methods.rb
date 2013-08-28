@@ -6,8 +6,7 @@ module Attributarchy
       class_attribute :attributarchy_configuration
     end
 
-    # TODO: Expand to allow multiple named attributarchies at some point.
-    def has_attributarchy(attributes)
+    def has_attributarchy(name, attributes)
       ### Check attribute configuration.
       raise ArgumentError, 'Expecting attributarchy (an array of symbols representing attributes)' \
         unless attributes.is_a? Array
@@ -24,10 +23,10 @@ module Attributarchy
         raise MissingPartial unless partial_exists?(a)
       end
 
-      self.attributarchy_configuration = {
-        attributes: attributes,
+      self.attributarchy_configuration ||= {
         partial_directory: partial_directory
       }
+      self.attributarchy_configuration[name] = attributes
     end
 
     def partial_directory

@@ -39,10 +39,10 @@ module Attributarchy
       context 'with one attributarchy (country)' do
 
         let(:attributarchy_configuration) {{
-            attributes: [:country],
+            country: [:country],
             partial_directory: 'dummy/attributarchy'
         }}
-        let(:output) { html_tidy(helper.build_attributarchy(attributarchy_configuration, data)) }
+        let(:output) { html_tidy(helper.build_attributarchy(attributarchy_configuration, :country, data)) }
         let(:expected_output) { html_tidy(File.read("#{subject.partial_directory_path}/one_attributarchy.html")) }
 
         it 'should be wrapped in an attributarchy-classed div' do
@@ -67,10 +67,10 @@ module Attributarchy
       context 'with two attributarchies (country, state)' do
 
         let(:attributarchy_configuration) {{
-            attributes: [:country, :state],
+            country_and_state: [:country, :state],
             partial_directory: 'dummy/attributarchy'
         }}
-        let(:output) { html_tidy(helper.build_attributarchy(attributarchy_configuration, data)) }
+        let(:output) { html_tidy(helper.build_attributarchy(attributarchy_configuration, :country_and_state, data)) }
         let(:expected_output) { html_tidy(File.read("#{subject.partial_directory_path}/two_attributarchies.html")) }
 
         it 'should be wrapped in an attributarchy-classed div' do
@@ -87,6 +87,43 @@ module Attributarchy
         end
 
         it 'renders two attributarchies' do
+          output.should eq(expected_output)
+        end
+
+      end
+
+      context 'with two attributarchies back-to-back (country; country, state)' do
+
+        let(:attributarchy_configuration) {{
+            country: [:country],
+            country_and_state: [:country, :state],
+            partial_directory: 'dummy/attributarchy'
+        }}
+        let(:output) {
+          html_tidy(
+            helper.build_attributarchy(attributarchy_configuration, :country, data) +
+            helper.build_attributarchy(attributarchy_configuration, :country_and_state, data)
+          )
+        }
+        let(:expected_output) {
+          html_tidy(File.read("#{subject.partial_directory_path}/one_attributarchy.html")) +
+          html_tidy(File.read("#{subject.partial_directory_path}/two_attributarchies.html"))
+        }
+
+        it 'should be wrapped in an attributarchy-classed div' do
+          output.should start_with '<div class="attributarchy">'
+          output.should end_with '</div>'
+        end
+
+        it 'should have two country attributarchies' do
+          output.scan('<div class="country-container">').length.should eq(2)
+        end
+
+        it 'should have three state attributarchies' do
+          output.scan('<div class="state-container">').length.should eq(3)
+        end
+
+        it 'renders two attributarchies back-to-back' do
           output.should eq(expected_output)
         end
 

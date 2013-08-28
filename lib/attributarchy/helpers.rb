@@ -1,9 +1,9 @@
 module Attributarchy
   module Helpers
-    def build_attributarchy(attributarchy, data, level_index = 0)
+    def build_attributarchy(attributarchy, name, data, level_index = 0)
       output ||= ''
       output = %{<div class="attributarchy">} if level_index == 0 # Outermost wrapper
-      current_level = attributarchy[:attributes][level_index]
+      current_level = attributarchy[name][level_index]
       data.group_by(&current_level).each_with_index do |(group_value, group_data), index|
         partial = "#{attributarchy[:partial_directory]}/#{current_level}"
         output << %{<div class="#{current_level}-container">}
@@ -14,8 +14,8 @@ module Attributarchy
             group_level: level_index
           }
         )
-        if level_index < attributarchy[:attributes].count - 1
-          output << build_attributarchy(attributarchy, data, level_index + 1)
+        if level_index < attributarchy[name].count - 1
+          output << build_attributarchy(attributarchy, name, data, level_index + 1)
         end
         output << '</div>'
       end
