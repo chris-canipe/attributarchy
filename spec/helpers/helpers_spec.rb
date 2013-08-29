@@ -46,20 +46,20 @@ module Attributarchy
         let(:expected_output) { html_tidy(File.read("#{subject.partial_directory_path}/one_attributarchy.html")) }
 
         it 'should be wrapped in an attributarchy-classed div' do
-          output.should start_with '<div class="attributarchy">'
-          output.should end_with '</div>'
+          expect(output).to start_with('<div class="attributarchy">')
+          expect(output).to end_with('</div>')
         end
 
         it 'should have one country attributarchy' do
-          output.scan('<div class="country-container">').length.should eq(1)
+          expect(output.scan('<div class="country-container">').length).to eq(1)
         end
 
         it 'should have no state attributarchies' do
-          output.scan('<div class="state-container">').length.should eq(0)
+          expect(output.scan('<div class="state-container">').length).to eq(0)
         end
 
         it 'renders one attributarchy' do
-          output.should eq(expected_output)
+          expect(output).to eq(expected_output)
         end
 
       end
@@ -74,20 +74,20 @@ module Attributarchy
         let(:expected_output) { html_tidy(File.read("#{subject.partial_directory_path}/two_attributarchies.html")) }
 
         it 'should be wrapped in an attributarchy-classed div' do
-          output.should start_with '<div class="attributarchy">'
-          output.should end_with '</div>'
+          expect(output).to start_with('<div class="attributarchy">')
+          expect(output).to end_with('</div>')
         end
 
         it 'should have one country attributarchy' do
-          output.scan('<div class="country-container">').length.should eq(1)
+          expect(output.scan('<div class="country-container">').length).to eq(1)
         end
 
         it 'should have three state attributarchies' do
-          output.scan('<div class="state-container">').length.should eq(3)
+          expect(output.scan('<div class="state-container">').length).to eq(3)
         end
 
         it 'renders two attributarchies' do
-          output.should eq(expected_output)
+          expect(output).to eq(expected_output)
         end
 
       end
@@ -111,20 +111,20 @@ module Attributarchy
         }
 
         it 'should be wrapped in an attributarchy-classed div' do
-          output.should start_with '<div class="attributarchy">'
-          output.should end_with '</div>'
+          expect(output).to start_with('<div class="attributarchy">')
+          expect(output).to end_with('</div>')
         end
 
         it 'should have two country attributarchies' do
-          output.scan('<div class="country-container">').length.should eq(2)
+          expect(output.scan('<div class="country-container">').length).to eq(2)
         end
 
         it 'should have three state attributarchies' do
-          output.scan('<div class="state-container">').length.should eq(3)
+          expect(output.scan('<div class="state-container">').length).to eq(3)
         end
 
         it 'renders two attributarchies back-to-back' do
-          output.should eq(expected_output)
+          expect(output).to eq(expected_output)
         end
 
       end
