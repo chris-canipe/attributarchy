@@ -20,11 +20,10 @@ module Attributarchy
 
       context 'when the arguments are invalid' do
         it 'raises ArgumentError exceptions' do
-          expect { subject.has_attributarchy()    }.to raise_error ArgumentError
-          expect { subject.has_attributarchy(nil) }.to raise_error ArgumentError
-          expect { subject.has_attributarchy(:attributarchy_name, [])  }.to raise_error ArgumentError
-          expect { subject.has_attributarchy(:attributarchy_name, ['attribute']) }.to raise_error ArgumentError
-          expect { subject.has_attributarchy(:attributarchy_name, [:attribute, 'attribute'])  }.to raise_error ArgumentError
+          expect { subject.has_attributarchy }.to raise_error ArgumentError
+          expect { subject.has_attributarchy :attributarchy_name, as: [] }.to raise_error ArgumentError
+          expect { subject.has_attributarchy :attributarchy_name, as: ['attribute'] }.to raise_error ArgumentError
+          expect { subject.has_attributarchy :attributarchy_name, as: [:attribute, 'attribute'] }.to raise_error ArgumentError
         end
       end
 
@@ -32,7 +31,7 @@ module Attributarchy
 
         context 'when the attributarchy partial directory does not exist' do
           it 'raises a MissingDirectory exception' do
-            expect { subject.has_attributarchy(attributarchy_name, valid_attributarchy) }.to raise_error MissingDirectory
+            expect { subject.has_attributarchy attributarchy_name, as: valid_attributarchy }.to raise_error MissingDirectory
           end
         end
 
@@ -43,12 +42,12 @@ module Attributarchy
           end
 
           it 'does not raise a MissingDirectory exception' do
-            expect { subject.has_attributarchy(attributarchy_name, valid_attributarchy) }.to_not raise_error(MissingDirectory)
+            expect { subject.has_attributarchy attributarchy_name, as: valid_attributarchy }.to_not raise_error(MissingDirectory)
           end
 
           context 'when a partial is missing' do
             it 'raises a MissingPartial exception' do
-              expect { subject.has_attributarchy(attributarchy_name, valid_attributarchy) }.to raise_error MissingPartial
+              expect { subject.has_attributarchy attributarchy_name, as: valid_attributarchy }.to raise_error MissingPartial
             end
           end
 
@@ -59,7 +58,7 @@ module Attributarchy
               end
             end
             it 'sets the attributarchy' do
-              subject.has_attributarchy(attributarchy_name, valid_attributarchy)
+              subject.has_attributarchy attributarchy_name, as: valid_attributarchy
               subject.attributarchy_configuration.should == {
                 attributarchy_name => valid_attributarchy,
                 partial_directory: 'dummy/attributarchy'

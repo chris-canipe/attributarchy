@@ -6,8 +6,11 @@ module Attributarchy
       class_attribute :attributarchy_configuration
     end
 
-    def has_attributarchy(name, attributes)
+    def has_attributarchy(name, arguments = {})
       ### Check attribute configuration.
+      raise ArgumentErorr, 'No attributarchy specified' \
+        unless arguments.is_a?(Hash) && arguments.has_key?(:as)
+      attributes = arguments[:as]
       raise ArgumentError, 'Expecting attributarchy (an array of symbols representing attributes)' \
         unless attributes.is_a? Array
       raise ArgumentError, 'Attributarchy cannot be empty' \
