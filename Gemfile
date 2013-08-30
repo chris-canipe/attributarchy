@@ -16,3 +16,7 @@ gemspec
 group :development, :test do
   gem 'pry-debugger'
 end
+
+group :test do
+  gem 'rspec-html-matchers'
+end
