@@ -51,11 +51,11 @@ module Attributarchy
         end
 
         it 'should have one country attributarchy' do
-          expect(output.scan('<div class="country-container">').length).to eq(1)
+          expect(output).to have_tag('div.country-container', count: 1)
         end
 
         it 'should have no state attributarchies' do
-          expect(output.scan('<div class="state-container">').length).to eq(0)
+          expect(output).to_not have_tag('div.state-container')
         end
 
         it 'renders one attributarchy' do
@@ -79,11 +79,11 @@ module Attributarchy
         end
 
         it 'should have one country attributarchy' do
-          expect(output.scan('<div class="country-container">').length).to eq(1)
+          expect(output).to have_tag('div.country-container', count: 1)
         end
 
         it 'should have three state attributarchies' do
-          expect(output.scan('<div class="state-container">').length).to eq(3)
+          expect(output).to have_tag('div.state-container', count: 3)
         end
 
         it 'renders two attributarchies' do
@@ -116,11 +116,11 @@ module Attributarchy
         end
 
         it 'should have two country attributarchies' do
-          expect(output.scan('<div class="country-container">').length).to eq(2)
+          expect(output).to have_tag('div.country-container', count: 2)
         end
 
         it 'should have three state attributarchies' do
-          expect(output.scan('<div class="state-container">').length).to eq(3)
+          expect(output).to have_tag('div.state-container', count: 3)
         end
 
         it 'renders two attributarchies back-to-back' do
