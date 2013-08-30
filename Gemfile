@@ -18,5 +18,18 @@ group :development, :test do
 end
 
 group :test do
+  # Nokogiri was... difficult. Thanks to @Tekhne for this one:
+  #
+  #   Mac OS X 10.7 appears to load its own version of libxml2 (and dependencies)
+  #   at boot time. Unfortunately, if you compile nokogiri against your own version
+  #   of libxml2 (and dependencies, e.g. via Homebrew), the compilation will work,
+  #   but OS X will force nokogiri to load the system library (and dependencies).
+  #   This will result in a warning every time nokogiri is used. The solution is to
+  #   tell Bundler to build nokogiri against the system library (and dependencies):
+  #
+  #   bundle conf build.nokogiri bundle conf build.nokogiri \
+  #      --with-xml2-dir=/usr \
+  #      --with-xslt-dir=/usr \
+  #      --with-iconv-dir=/usr
   gem 'rspec-html-matchers'
 end
