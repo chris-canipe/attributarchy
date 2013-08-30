@@ -76,8 +76,10 @@ module Attributarchy
           expect(output).to have_tag('div.country-container', count: 1)
         end
 
-        it 'should have three state attributarchies' do
-          expect(output).to have_tag('div.state-container', count: 3)
+        it 'should have three state attributarchies within the country' do
+          expect(output).to have_tag('div.country-container') do
+            with_tag('div.state-container', count: 3)
+          end
         end
 
         it 'renders two attributarchies' do
@@ -106,12 +108,26 @@ module Attributarchy
 
         it_behaves_like 'an attributarchy'
 
-        it 'should have two country attributarchies' do
-          expect(output).to have_tag('div.country-container', count: 2)
+        it 'should have two attributarchies' do
+          expect(output).to have_tag('div.attributarchy', count: 2)
         end
 
-        it 'should have three state attributarchies' do
-          expect(output).to have_tag('div.state-container', count: 3)
+        it 'should have one country in the first attributarchy' do
+          expect(output).to have_tag('div.attributarchy:nth-child(1) div.country-container', count: 1)
+        end
+
+        it 'should have no states in the first attributarchy' do
+          expect(output).to_not have_tag('div.attributarchy:nth-child(1) div.state-container')
+        end
+
+        it 'should have one country in the second attributarchy' do
+          expect(output).to have_tag('div.attributarchy:nth-child(2) div.country-container', count: 1)
+        end
+
+        it 'should have three states in the second attributarchy' do
+          expect(output).to have_tag('div.attributarchy:nth-child(2) div.country-container') do
+            with_tag('div.state-container', count: 3)
+          end
         end
 
         it 'renders two attributarchies back-to-back' do
