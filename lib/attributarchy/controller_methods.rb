@@ -34,8 +34,8 @@ module Attributarchy
     end
 
     def partial_directory_path
-      # TODO: Search all?
       "#{view_context.view_paths.first}/#{partial_directory}"
+
     end
 
     def partial_directory_exists?
