@@ -45,10 +45,7 @@ module Attributarchy
         let(:output) { html_tidy(helper.build_attributarchy(attributarchy_configuration, :country, data)) }
         let(:expected_output) { html_tidy(File.read("#{subject.partial_directory_path}/one_attributarchy.html")) }
 
-        it 'should be wrapped in an attributarchy-classed div' do
-          expect(output).to start_with('<div class="attributarchy">')
-          expect(output).to end_with('</div>')
-        end
+        it_behaves_like 'an attributarchy'
 
         it 'should have one country attributarchy' do
           expect(output).to have_tag('div.country-container', count: 1)
@@ -73,10 +70,7 @@ module Attributarchy
         let(:output) { html_tidy(helper.build_attributarchy(attributarchy_configuration, :country_and_state, data)) }
         let(:expected_output) { html_tidy(File.read("#{subject.partial_directory_path}/two_attributarchies.html")) }
 
-        it 'should be wrapped in an attributarchy-classed div' do
-          expect(output).to start_with('<div class="attributarchy">')
-          expect(output).to end_with('</div>')
-        end
+        it_behaves_like 'an attributarchy'
 
         it 'should have one country attributarchy' do
           expect(output).to have_tag('div.country-container', count: 1)
@@ -110,10 +104,7 @@ module Attributarchy
           html_tidy(File.read("#{subject.partial_directory_path}/two_attributarchies.html"))
         }
 
-        it 'should be wrapped in an attributarchy-classed div' do
-          expect(output).to start_with('<div class="attributarchy">')
-          expect(output).to end_with('</div>')
-        end
+        it_behaves_like 'an attributarchy'
 
         it 'should have two country attributarchies' do
           expect(output).to have_tag('div.country-container', count: 2)
