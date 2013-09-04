@@ -5,10 +5,10 @@ module Attributarchy
       output = %{<div class="attributarchy">} if level_index == 0 # Outermost wrapper
       current_level = attributarchy[name][level_index]
       data.group_by(&current_level).each_with_index do |(group_value, group_data), index|
-        partial = "#{attributarchy[:partial_directory]}/#{current_level}"
         output << %{<div class="#{current_level}-container">}
         output << (
-          render partial: partial, locals: {
+          # TODO: / desired?
+          render partial: "/#{current_level}", locals: {
             group_data: group_data,
             group_value: group_value,
             group_level: level_index

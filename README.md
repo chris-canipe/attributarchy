@@ -16,8 +16,6 @@ Dynamic, hierarchical views that allow you to easily dish out an array of layout
 
 ## TODO
 
-1. Allow the partial directory to be configured, e.g., specify a shared directory
-   that is not tied to controller's view paths.
 1. Search all view paths -- not just the first.
 1. Allow an attributarchy to be defined without an accompanying partial, i.e.,
    it's for grouping only -- there's nothing to display.

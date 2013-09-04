@@ -10,6 +10,9 @@ module Attributarchy
     subject { DummyController.new }
     let(:attributarchy_name) { :test_attributarchy }
     let(:valid_attributarchy) { [:attr1, :attr2, :attr3] }
+    let(:rails_view_path) { File.join(::Rails.root, %w[app views]) }
+    let(:attributarchy_view_path) { File.join(rails_view_path, subject.controller_name) }
+    let(:defined_view_paths) { subject.view_paths.to_a.map { |path| path.to_s } }
 
     before :each do
       # Prevent previous lookups from reporting a partial as non-existent.
@@ -29,77 +32,75 @@ module Attributarchy
 
       context 'when the arguments are valid' do
 
-        context 'when the attributarchy partial directory does not exist' do
-          it 'raises a MissingDirectory exception' do
-            expect { subject.has_attributarchy attributarchy_name, as: valid_attributarchy }.to raise_error MissingDirectory
+        context 'when a partial is missing' do
+          it 'raises a MissingPartial exception' do
+            expect { subject.has_attributarchy attributarchy_name, as: valid_attributarchy }.to raise_error MissingPartial
           end
         end
 
-        context 'when the attributarchy partial directory exists' do
+        context 'when no partials are missing' do
 
-          before :each  do
-            FileUtils.mkdir_p(subject.partial_directory_path)
-          end
-
-          it 'does not raise a MissingDirectory exception' do
-            expect { subject.has_attributarchy attributarchy_name, as: valid_attributarchy }.to_not raise_error(MissingDirectory)
-          end
-
-          context 'when a partial is missing' do
-            it 'raises a MissingPartial exception' do
-              expect { subject.has_attributarchy attributarchy_name, as: valid_attributarchy }.to raise_error MissingPartial
+          before :each do
+            FileUtils.mkdir_p(attributarchy_view_path)
+            valid_attributarchy.each do |a|
+              FileUtils.touch File.join(attributarchy_view_path, "_#{a}.html.erb")
             end
           end
 
-          context 'when no partials are missing' do
-            before :each do
-              valid_attributarchy.each do |a|
-                FileUtils.touch "#{subject.partial_directory_path}/_#{a}.html.erb"
-              end
+          it 'sets the attributarchy' do
+            subject.has_attributarchy attributarchy_name, as: valid_attributarchy
+            expect(subject.attributarchy_configuration).to eq({
+              attributarchy_name => valid_attributarchy
+            })
+          end
+
+          it "adds the default lookup path to the view paths (the controller's views)" do
+            subject.has_attributarchy attributarchy_name, as: valid_attributarchy
+            expect(defined_view_paths).to include(attributarchy_view_path)
+          end
+
+          context 'when a lookup path is specified' do
+
+            it 'accepts a string' do
+              expect {
+                subject.has_attributarchy attributarchy_name, as: valid_attributarchy, in: 'path'
+              }.to_not raise_error ArgumentError
+              expect(defined_view_paths).to include(File.join(rails_view_path, 'path'))
             end
-            it 'sets the attributarchy' do
-              subject.has_attributarchy attributarchy_name, as: valid_attributarchy
-              subject.attributarchy_configuration.should == {
-                attributarchy_name => valid_attributarchy,
-                partial_directory: 'dummy/attributarchy'
-              }
+
+            it 'accepts an array' do
+              expect {
+                subject.has_attributarchy attributarchy_name, as: valid_attributarchy, in: ['path']
+              }.to_not raise_error ArgumentError
+              expect(defined_view_paths).to include(File.join(rails_view_path, 'path'))
             end
+
           end
         end
       end
     end
 
-    describe '#partial_directory' do
-      it 'should be the controller name/attributarchy' do
-        subject.partial_directory.should == "#{subject.controller_name}/attributarchy"
-      end
-    end
+    describe '#partial_exists_for?' do
 
-    describe '#partial_directory_path' do
-      it 'should be the first view path (for now)/partial_directory' do
-        subject.partial_directory_path.should == "#{subject.view_context.view_paths.first}/#{subject.partial_directory}"
-      end
-    end
-
-    describe '#partial_directory_exists?' do
-      it 'should return false if the directory does not exist' do
-        (subject.partial_directory_exists?).should be_false
-      end
-      it 'should return true if the directory exists' do
-        FileUtils.mkdir_p(subject.partial_directory_path)
-        (subject.partial_directory_exists?).should be_true
-      end
-    end
-
-    describe '#partial_exists?' do
       it 'should return false if the partial does not exist' do
-        (subject.partial_exists?(:partial)).should be_false
+        expect(subject.partial_exists_for?(:nonexistent_partial)).to be_false
       end
+
       it 'should return true if the partial exists' do
-        FileUtils.mkdir_p(subject.partial_directory_path)
-        FileUtils.touch "#{subject.partial_directory_path}/_partial.html.erb"
-        (subject.partial_exists?(:partial)).should be_true
+        FileUtils.mkdir_p(attributarchy_view_path)
+        FileUtils.touch File.join(attributarchy_view_path, '_attr1.html.erb')
+        subject.prepend_view_path(attributarchy_view_path)
+        expect(subject.partial_exists_for?(:attr1)).to be_true
       end
+
+      it 'should return true if the partial exists in a lookup path' do
+        lookup_path = File.join(attributarchy_view_path, 'lookup')
+        FileUtils.mkdir_p(lookup_path)
+        FileUtils.touch File.join(lookup_path, '_attr1.html.erb')
+        subject.prepend_view_path(lookup_path)
+        expect(subject.partial_exists_for?(:attr1)).to be_true
+      end
+
     end
 
   end
