@@ -64,14 +64,14 @@ module Attributarchy
             it 'accepts a string' do
               expect {
                 subject.has_attributarchy attributarchy_name, as: valid_attributarchy, in: 'path'
-              }.to_not raise_error ArgumentError
+              }.to_not raise_error
               expect(defined_view_paths).to include(File.join(rails_view_path, 'path'))
             end
 
             it 'accepts an array' do
               expect {
                 subject.has_attributarchy attributarchy_name, as: valid_attributarchy, in: ['path']
-              }.to_not raise_error ArgumentError
+              }.to_not raise_error
               expect(defined_view_paths).to include(File.join(rails_view_path, 'path'))
             end
 
