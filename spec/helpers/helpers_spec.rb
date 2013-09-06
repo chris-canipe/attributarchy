@@ -25,7 +25,6 @@ module Attributarchy
       AttributarchyStruct.new('United States', 'North Carolina', 'Charlotte'),
       AttributarchyStruct.new('United States', 'North Carolina', 'Asheville')
     ] }
-    let(:rails_view_path) { File.join(::Rails.root, %w[app views]) }
     let(:attributarchy_view_path) { File.join(rails_view_path, subject.controller_name) }
 
     describe '#build_attributarchy' do
