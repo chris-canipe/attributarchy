@@ -35,12 +35,15 @@ module Attributarchy
 
         context 'with one attributarchy (country)' do
 
-          let(:attributarchy_configuration) {{
+          let(:output) { html_tidy(helper.build_attributarchy(:country, data)) }
+          let(:expected_output) { html_tidy(File.read(File.join(attributarchy_view_path, 'one_attributarchy.html'))) }
+
+          before :each do
+            assign(:attributarchy_configuration, {
               country: [:country],
               without_rendering: {}
-          }}
-          let(:output) { html_tidy(helper.build_attributarchy(attributarchy_configuration, :country, data)) }
-          let(:expected_output) { html_tidy(File.read(File.join(attributarchy_view_path, 'one_attributarchy.html'))) }
+            })
+          end
 
           it_behaves_like 'an attributarchy'
 
@@ -62,12 +65,15 @@ module Attributarchy
 
           context 'when all attributarchies are rendered' do
 
-            let(:attributarchy_configuration) {{
+            let(:output) { html_tidy(helper.build_attributarchy(:country_and_state, data)) }
+            let(:expected_output) { html_tidy(File.read(File.join(attributarchy_view_path, 'two_attributarchies.html'))) }
+
+            before :each do
+              assign(:attributarchy_configuration, {
                 country_and_state: [:country, :state],
                 without_rendering: {}
-            }}
-            let(:output) { html_tidy(helper.build_attributarchy(attributarchy_configuration, :country_and_state, data)) }
-            let(:expected_output) { html_tidy(File.read(File.join(attributarchy_view_path, 'two_attributarchies.html'))) }
+              })
+            end
 
             it_behaves_like 'an attributarchy'
 
@@ -89,12 +95,15 @@ module Attributarchy
 
           context 'when an attributarchy has a group-only attribute' do
 
-            let(:attributarchy_configuration) {{
+            let(:output) { html_tidy(helper.build_attributarchy(:country_and_state, data)) }
+            let(:expected_output) { html_tidy(File.read(File.join(attributarchy_view_path, 'two_attributarchies_without_rendering_country.html'))) }
+
+            before :each do
+              assign(:attributarchy_configuration, {
                 country_and_state: [:country, :state],
                 without_rendering: { country: nil }
-            }}
-            let(:output) { html_tidy(helper.build_attributarchy(attributarchy_configuration, :country_and_state, data)) }
-            let(:expected_output) { html_tidy(File.read(File.join(attributarchy_view_path, 'two_attributarchies_without_rendering_country.html'))) }
+              })
+            end
 
             it_behaves_like 'an attributarchy'
 
@@ -119,21 +128,24 @@ module Attributarchy
 
         context 'with two attributarchies back-to-back (country; country, state)' do
 
-          let(:attributarchy_configuration) {{
-              country: [:country],
-              country_and_state: [:country, :state],
-              without_rendering: {}
-          }}
           let(:output) {
             html_tidy(
-              helper.build_attributarchy(attributarchy_configuration, :country, data) +
-              helper.build_attributarchy(attributarchy_configuration, :country_and_state, data)
+              helper.build_attributarchy(:country, data) +
+              helper.build_attributarchy(:country_and_state, data)
             )
           }
           let(:expected_output) {
             html_tidy(File.read(File.join(attributarchy_view_path, 'one_attributarchy.html'))) +
             html_tidy(File.read(File.join(attributarchy_view_path, 'two_attributarchies.html')))
           }
+
+          before :each do
+            assign(:attributarchy_configuration, {
+              country: [:country],
+              country_and_state: [:country, :state],
+              without_rendering: {}
+            })
+          end
 
           it_behaves_like 'an attributarchy'
 
@@ -180,12 +192,15 @@ module Attributarchy
 
         context 'with one attributarchy (country)' do
 
-          let(:attributarchy_configuration) {{
+          let(:output) { html_tidy(helper.build_attributarchy(:country, data)) }
+          let(:expected_output) { html_tidy(File.read(File.join(lookup_path, 'one_attributarchy.html'))) }
+
+          before :each do
+            assign(:attributarchy_configuration, {
               country: [:country],
               without_rendering: {}
-          }}
-          let(:output) { html_tidy(helper.build_attributarchy(attributarchy_configuration, :country, data)) }
-          let(:expected_output) { html_tidy(File.read(File.join(lookup_path, 'one_attributarchy.html'))) }
+            })
+          end
 
           it_behaves_like 'an attributarchy'
 
