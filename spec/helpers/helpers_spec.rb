@@ -6,13 +6,6 @@ end
 
 AttributarchyStruct = Struct.new(:country, :state, :city)
 
-def html_tidy(html)
-  html.
-    gsub(/\A\s+|\s+\z/, '').
-    gsub(/>\s+/, '>').
-    gsub(/\s+</, '<')
-end
-
 module Attributarchy
   describe Helpers do
 
