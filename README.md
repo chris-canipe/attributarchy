@@ -16,13 +16,13 @@ Dynamic, hierarchical views that allow you to easily dish out an array of layout
 
 ## Usage
 
-In your Gemfile:
+##### In your Gemfile:
 
 ```ruby
   gem 'attributarchy'
 ```
 
-In your controller:
+##### In your controller:
 
 ```ruby
   include Attributarchy
@@ -41,9 +41,19 @@ In your controller:
       without_rendering: [:a_no_show]
 ```
 
-In your view:
+##### In your controller's corresponding view directory (or another location configured via :in):
 
-_Pending. Needs some tweaking first._
+Define a partial for all rendering attributes. The locals provided to these are:
+
+1. *group_data* -- The data set of the grouped-by attribute
+1. *group_value* -- The name of the grouped-by attribute
+1. *group_level* -- An integer representing the position of the grouping within the hierarchy
+
+##### And, finally, in your view:
+
+```ruby
+  build_attributarchy(:name, data_set)
+```
 
 
 ## TODO
