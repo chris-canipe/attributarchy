@@ -44,7 +44,8 @@ module Attributarchy
         context 'with one attributarchy (country)' do
 
           let(:attributarchy_configuration) {{
-              country: [:country]
+              country: [:country],
+              without_rendering: {}
           }}
           let(:output) { html_tidy(helper.build_attributarchy(attributarchy_configuration, :country, data)) }
           let(:expected_output) { html_tidy(File.read(File.join(attributarchy_view_path, 'one_attributarchy.html'))) }
@@ -67,26 +68,59 @@ module Attributarchy
 
         context 'with two attributarchies (country, state)' do
 
-          let(:attributarchy_configuration) {{
-              country_and_state: [:country, :state]
-          }}
-          let(:output) { html_tidy(helper.build_attributarchy(attributarchy_configuration, :country_and_state, data)) }
-          let(:expected_output) { html_tidy(File.read(File.join(attributarchy_view_path, 'two_attributarchies.html'))) }
+          context 'when all attributarchies are rendered' do
 
-          it_behaves_like 'an attributarchy'
+            let(:attributarchy_configuration) {{
+                country_and_state: [:country, :state],
+                without_rendering: {}
+            }}
+            let(:output) { html_tidy(helper.build_attributarchy(attributarchy_configuration, :country_and_state, data)) }
+            let(:expected_output) { html_tidy(File.read(File.join(attributarchy_view_path, 'two_attributarchies.html'))) }
 
-          it 'should have one country attributarchy' do
-            expect(output).to have_tag('div.country-container', count: 1)
-          end
+            it_behaves_like 'an attributarchy'
 
-          it 'should have three state attributarchies within the country' do
-            expect(output).to have_tag('div.country-container') do
-              with_tag('div.state-container', count: 3)
+            it 'should have one country attributarchy' do
+              expect(output).to have_tag('div.country-container', count: 1)
             end
+
+            it 'should have three state attributarchies within the country' do
+              expect(output).to have_tag('div.country-container') do
+                with_tag('div.state-container', count: 3)
+              end
+            end
+
+            it 'renders two attributarchies' do
+              expect(output).to eq(expected_output)
+            end
+
           end
 
-          it 'renders two attributarchies' do
-            expect(output).to eq(expected_output)
+          context 'when an attributarchy has a group-only attribute' do
+
+            let(:attributarchy_configuration) {{
+                country_and_state: [:country, :state],
+                without_rendering: { country: nil }
+            }}
+            let(:output) { html_tidy(helper.build_attributarchy(attributarchy_configuration, :country_and_state, data)) }
+            let(:expected_output) { html_tidy(File.read(File.join(attributarchy_view_path, 'two_attributarchies_without_rendering_country.html'))) }
+
+            it_behaves_like 'an attributarchy'
+
+            it 'should have one country attributarchy but no country content' do
+              expect(output).to have_tag('div.country-container', count: 1)
+              expect(output).to_not have_tag('section.country')
+            end
+
+            it 'should have three state attributarchies within the country' do
+              expect(output).to have_tag('div.country-container') do
+                with_tag('div.state-container', count: 3)
+              end
+            end
+
+            it 'groups on both attributarchies but only renders the states' do
+              expect(output).to eq(expected_output)
+            end
+
           end
 
         end
@@ -95,7 +129,8 @@ module Attributarchy
 
           let(:attributarchy_configuration) {{
               country: [:country],
-              country_and_state: [:country, :state]
+              country_and_state: [:country, :state],
+              without_rendering: {}
           }}
           let(:output) {
             html_tidy(
@@ -154,7 +189,8 @@ module Attributarchy
         context 'with one attributarchy (country)' do
 
           let(:attributarchy_configuration) {{
-              country: [:country]
+              country: [:country],
+              without_rendering: {}
           }}
           let(:output) { html_tidy(helper.build_attributarchy(attributarchy_configuration, :country, data)) }
           let(:expected_output) { html_tidy(File.read(File.join(lookup_path, 'one_attributarchy.html'))) }

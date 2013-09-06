@@ -16,6 +16,4 @@ Dynamic, hierarchical views that allow you to easily dish out an array of layout
 
 ## TODO
 
-1. Allow an attributarchy to be defined without an accompanying partial, i.e.,
-   it's for grouping only -- there's nothing to display.
 1. Allow configuration of the wrapping element and class.

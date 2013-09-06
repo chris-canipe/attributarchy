@@ -30,12 +30,23 @@ module Attributarchy
         File.join(::Rails.root, %w[app views], prefix)
       end
       prepend_view_path(lookup_paths)
+      ### Group-only attributes that do not render (optional).
+      without_rendering = {}
+      if arguments.has_key?(:without_rendering)
+        without_rendering = arguments[:without_rendering]
+        raise ArgumentError, ':without_rendering must be specified as a symbol or array' \
+          unless [Array, Symbol].any? { |type| without_rendering.is_a?(type) }
+        without_rendering = Hash[*[without_rendering].flatten.map { |k| [k, nil] }.flatten]
+      end
       ### Check partial existence.
       attributes.each do |a|
+        next if without_rendering.has_key?(a)
         raise MissingPartial unless partial_exists_for?(a)
       end
       ### Set configuration
-      self.attributarchy_configuration ||= {}
+      self.attributarchy_configuration ||= {
+        without_rendering: without_rendering
+      }
       self.attributarchy_configuration[name] = attributes
     end
 

@@ -33,9 +33,26 @@ module Attributarchy
       context 'when the arguments are valid' do
 
         context 'when a partial is missing' do
+
           it 'raises a MissingPartial exception' do
             expect { subject.has_attributarchy attributarchy_name, as: valid_attributarchy }.to raise_error MissingPartial
           end
+
+          context 'when an attributarchy has group-only attributes' do
+            it 'accepts a symbol and does not raise a MissingPartial exception' do
+              expect {
+                subject.has_attributarchy attributarchy_name, as: [:no_partial], without_rendering: :no_partial
+              }.to_not raise_error
+              expect(subject.attributarchy_configuration[:without_rendering]).to include(no_partial: nil)
+            end
+            it 'accepts an array and does not raise a MissingPartial exception' do
+              expect {
+                subject.has_attributarchy attributarchy_name, as: [:no_partial], without_rendering: [:no_partial]
+              }.to_not raise_error
+              expect(subject.attributarchy_configuration[:without_rendering]).to include(no_partial: nil)
+            end
+          end
+
         end
 
         context 'when no partials are missing' do
@@ -50,7 +67,8 @@ module Attributarchy
           it 'sets the attributarchy' do
             subject.has_attributarchy attributarchy_name, as: valid_attributarchy
             expect(subject.attributarchy_configuration).to eq({
-              attributarchy_name => valid_attributarchy
+              attributarchy_name => valid_attributarchy,
+              without_rendering: {}
             })
           end
 
