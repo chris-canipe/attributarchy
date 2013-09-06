@@ -5,7 +5,7 @@ class DummyController < ActionController::Base
 end
 
 module Attributarchy
-  describe ControllerMethods, use_fakefs: true do
+  describe ControllerMethods do
 
     subject { DummyController.new }
     let(:attributarchy_name) { :test_attributarchy }
