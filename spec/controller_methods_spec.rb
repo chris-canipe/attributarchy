@@ -18,6 +18,10 @@ module Attributarchy
       ActionView::Resolver.caching = false
     end
 
+    it 'defines the build_attributarchy helper' do
+      expect(subject.new.view_context).to respond_to(:build_attributarchy)
+    end
+
     describe '#has_attributarchy' do
 
       context 'when the arguments are invalid' do
