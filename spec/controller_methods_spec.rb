@@ -31,94 +31,50 @@ module Attributarchy
 
       context 'when the arguments are valid' do
 
-        context 'when a partial is missing' do
+        it 'sets the attributarchy' do
+          subject.has_attributarchy attributarchy_name, as: valid_attributarchy
+          expect(subject.attributarchy_configuration).to eq({
+            attributarchy_name => valid_attributarchy,
+            without_rendering: {}
+          })
+        end
 
-          it 'raises a MissingPartial exception' do
-            expect { subject.has_attributarchy attributarchy_name, as: valid_attributarchy }.to raise_error MissingPartial
+        it "adds the default lookup path to the view paths (the controller's views)" do
+          subject.has_attributarchy attributarchy_name, as: valid_attributarchy
+          expect(defined_view_paths).to include(attributarchy_view_path)
+        end
+
+        context 'when an attributarchy has group-only attributes' do
+          it 'accepts a symbol' do
+            expect {
+              subject.has_attributarchy attributarchy_name, as: [:no_partial], without_rendering: :no_partial
+            }.to_not raise_error
+            expect(subject.attributarchy_configuration[:without_rendering]).to include(no_partial: nil)
           end
+          it 'accepts an array' do
+            expect {
+              subject.has_attributarchy attributarchy_name, as: [:no_partial], without_rendering: [:no_partial]
+            }.to_not raise_error
+            expect(subject.attributarchy_configuration[:without_rendering]).to include(no_partial: nil)
+          end
+        end
 
-          context 'when an attributarchy has group-only attributes' do
-            it 'accepts a symbol and does not raise a MissingPartial exception' do
-              expect {
-                subject.has_attributarchy attributarchy_name, as: [:no_partial], without_rendering: :no_partial
-              }.to_not raise_error
-              expect(subject.attributarchy_configuration[:without_rendering]).to include(no_partial: nil)
-            end
-            it 'accepts an array and does not raise a MissingPartial exception' do
-              expect {
-                subject.has_attributarchy attributarchy_name, as: [:no_partial], without_rendering: [:no_partial]
-              }.to_not raise_error
-              expect(subject.attributarchy_configuration[:without_rendering]).to include(no_partial: nil)
-            end
+        context 'when a lookup path is specified' do
+          it 'accepts a string' do
+            expect {
+              subject.has_attributarchy attributarchy_name, as: valid_attributarchy, in: 'path'
+            }.to_not raise_error
+            expect(defined_view_paths).to include(File.join(rails_view_path, 'path'))
+          end
+          it 'accepts an array' do
+            expect {
+              subject.has_attributarchy attributarchy_name, as: valid_attributarchy, in: ['path']
+            }.to_not raise_error
+            expect(defined_view_paths).to include(File.join(rails_view_path, 'path'))
           end
 
         end
-
-        context 'when no partials are missing' do
-
-          before :each do
-            FileUtils.mkdir_p(attributarchy_view_path)
-            valid_attributarchy.each do |a|
-              FileUtils.touch File.join(attributarchy_view_path, "_#{a}.html.erb")
-            end
-          end
-
-          it 'sets the attributarchy' do
-            subject.has_attributarchy attributarchy_name, as: valid_attributarchy
-            expect(subject.attributarchy_configuration).to eq({
-              attributarchy_name => valid_attributarchy,
-              without_rendering: {}
-            })
-          end
-
-          it "adds the default lookup path to the view paths (the controller's views)" do
-            subject.has_attributarchy attributarchy_name, as: valid_attributarchy
-            expect(defined_view_paths).to include(attributarchy_view_path)
-          end
-
-          context 'when a lookup path is specified' do
-
-            it 'accepts a string' do
-              expect {
-                subject.has_attributarchy attributarchy_name, as: valid_attributarchy, in: 'path'
-              }.to_not raise_error
-              expect(defined_view_paths).to include(File.join(rails_view_path, 'path'))
-            end
-
-            it 'accepts an array' do
-              expect {
-                subject.has_attributarchy attributarchy_name, as: valid_attributarchy, in: ['path']
-              }.to_not raise_error
-              expect(defined_view_paths).to include(File.join(rails_view_path, 'path'))
-            end
-
-          end
-        end
       end
     end
-
-    describe '#partial_exists_for?' do
-
-      it 'should return false if the partial does not exist' do
-        expect(subject.partial_exists_for?(:nonexistent_partial)).to be_false
-      end
-
-      it 'should return true if the partial exists' do
-        FileUtils.mkdir_p(attributarchy_view_path)
-        FileUtils.touch File.join(attributarchy_view_path, '_attr1.html.erb')
-        subject.prepend_view_path(attributarchy_view_path)
-        expect(subject.partial_exists_for?(:attr1)).to be_true
-      end
-
-      it 'should return true if the partial exists in a lookup path' do
-        lookup_path = File.join(attributarchy_view_path, 'lookup')
-        FileUtils.mkdir_p(lookup_path)
-        FileUtils.touch File.join(lookup_path, '_attr1.html.erb')
-        subject.prepend_view_path(lookup_path)
-        expect(subject.partial_exists_for?(:attr1)).to be_true
-      end
-
-    end
-
   end
 end

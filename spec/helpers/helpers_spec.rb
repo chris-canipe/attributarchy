@@ -22,6 +22,16 @@ module Attributarchy
 
     describe '#build_attributarchy' do
 
+      context 'when a partial is missing' do
+        it 'should throw an ActionView::MissingTemplate exception' do
+          assign(:attributarchy_configuration, {
+            country: [:country],
+            without_rendering: {}
+          })
+          expect{ helper.build_attributarchy(:country, data) }.to raise_error ActionView::MissingTemplate
+        end
+      end
+
       context 'with the default lookup path' do
 
         before :each do
