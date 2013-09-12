@@ -45,8 +45,9 @@ module Attributarchy
 
         context 'with one attributarchy (country)' do
 
-          let(:output) { html_tidy(helper.build_attributarchy(:country, data)) }
-          let(:expected_output) { html_tidy(File.read(File.join(attributarchy_view_path, 'one_attributarchy.html'))) }
+          let(:output) { helper.build_attributarchy(:country, data) }
+          let(:tidied_output) { html_tidy(output) }
+          let(:tidied_expected_output) { html_tidy(File.read(File.join(attributarchy_view_path, 'one_attributarchy.html'))) }
 
           before :each do
             helper.stub(:attributarchy_configuration).and_return({
@@ -66,7 +67,7 @@ module Attributarchy
           end
 
           it 'renders one attributarchy' do
-            expect(output).to eq(expected_output)
+            expect(tidied_output).to eq(tidied_expected_output)
           end
 
         end
@@ -75,8 +76,9 @@ module Attributarchy
 
           context 'when all attributarchies are rendered' do
 
-            let(:output) { html_tidy(helper.build_attributarchy(:country_and_state, data)) }
-            let(:expected_output) { html_tidy(File.read(File.join(attributarchy_view_path, 'two_attributarchies.html'))) }
+            let(:output) { helper.build_attributarchy(:country_and_state, data) }
+            let(:tidied_output) { html_tidy(output) }
+            let(:tidied_expected_output) { html_tidy(File.read(File.join(attributarchy_view_path, 'two_attributarchies.html'))) }
 
             before :each do
               helper.stub(:attributarchy_configuration).and_return({
@@ -98,15 +100,16 @@ module Attributarchy
             end
 
             it 'renders two attributarchies' do
-              expect(output).to eq(expected_output)
+              expect(tidied_output).to eq(tidied_expected_output)
             end
 
           end
 
           context 'when an attributarchy has a group-only attribute' do
 
-            let(:output) { html_tidy(helper.build_attributarchy(:country_and_state, data)) }
-            let(:expected_output) { html_tidy(File.read(File.join(attributarchy_view_path, 'two_attributarchies_without_rendering_country.html'))) }
+            let(:output) { helper.build_attributarchy(:country_and_state, data) }
+            let(:tidied_output) { html_tidy(output) }
+            let(:tidied_expected_output) { html_tidy(File.read(File.join(attributarchy_view_path, 'two_attributarchies_without_rendering_country.html'))) }
 
             before :each do
               helper.stub(:attributarchy_configuration).and_return({
@@ -129,7 +132,7 @@ module Attributarchy
             end
 
             it 'groups on both attributarchies but only renders the states' do
-              expect(output).to eq(expected_output)
+              expect(tidied_output).to eq(tidied_expected_output)
             end
 
           end
@@ -139,14 +142,15 @@ module Attributarchy
         context 'with two attributarchies back-to-back (country; country, state)' do
 
           let(:output) {
-            html_tidy(
-              helper.build_attributarchy(:country, data) +
-              helper.build_attributarchy(:country_and_state, data)
-            )
+            helper.build_attributarchy(:country, data) +
+            helper.build_attributarchy(:country_and_state, data)
           }
-          let(:expected_output) {
-            html_tidy(File.read(File.join(attributarchy_view_path, 'one_attributarchy.html'))) +
-            html_tidy(File.read(File.join(attributarchy_view_path, 'two_attributarchies.html')))
+          let(:tidied_output) { html_tidy(output) }
+          let(:tidied_expected_output) {
+            html_tidy(
+              File.read(File.join(attributarchy_view_path, 'one_attributarchy.html')) +
+              File.read(File.join(attributarchy_view_path, 'two_attributarchies.html'))
+            )
           }
 
           before :each do
@@ -182,7 +186,7 @@ module Attributarchy
           end
 
           it 'renders two attributarchies back-to-back' do
-            expect(output).to eq(expected_output)
+            expect(tidied_output).to eq(tidied_expected_output)
           end
 
         end
@@ -202,7 +206,7 @@ module Attributarchy
 
         context 'with one attributarchy (country)' do
 
-          let(:output) { html_tidy(helper.build_attributarchy(:country, data)) }
+          let(:output) { helper.build_attributarchy(:country, data) }
           let(:expected_output) { html_tidy(File.read(File.join(lookup_path, 'one_attributarchy.html'))) }
 
           before :each do

@@ -22,7 +22,7 @@ module Attributarchy
         output << '</div>'
       end
       output << '</div>' if level_index == 0 # End outermost wrapper
-      output
+      output.html_safe
     end
   end
 end
