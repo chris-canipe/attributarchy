@@ -3,10 +3,10 @@ module Attributarchy
     def build_attributarchy(name, data, level_index = 0)
       output ||= ''
       output = %{<div class="attributarchy">} if level_index == 0 # Outermost wrapper
-      current_level = @attributarchy_configuration[name][level_index]
+      current_level = attributarchy_configuration[name][level_index]
       data.group_by(&current_level).each_with_index do |(group_value, group_data), index|
         output << %{<div class="#{current_level}-container">}
-        unless @attributarchy_configuration[:without_rendering].has_key?(current_level)
+        unless attributarchy_configuration[:without_rendering].has_key?(current_level)
           output << (
             # TODO: / desired?
             render partial: "/#{current_level}", locals: {
@@ -16,7 +16,7 @@ module Attributarchy
             }
           )
         end
-        if level_index < @attributarchy_configuration[name].count - 1
+        if level_index < attributarchy_configuration[name].count - 1
           output << build_attributarchy(name, data, level_index + 1)
         end
         output << '</div>'

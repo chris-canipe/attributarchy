@@ -24,7 +24,7 @@ module Attributarchy
 
       context 'when a partial is missing' do
         it 'should throw an ActionView::MissingTemplate exception' do
-          assign(:attributarchy_configuration, {
+          helper.stub(:attributarchy_configuration).and_return({
             country: [:country],
             without_rendering: {}
           })
@@ -49,7 +49,7 @@ module Attributarchy
           let(:expected_output) { html_tidy(File.read(File.join(attributarchy_view_path, 'one_attributarchy.html'))) }
 
           before :each do
-            assign(:attributarchy_configuration, {
+            helper.stub(:attributarchy_configuration).and_return({
               country: [:country],
               without_rendering: {}
             })
@@ -79,7 +79,7 @@ module Attributarchy
             let(:expected_output) { html_tidy(File.read(File.join(attributarchy_view_path, 'two_attributarchies.html'))) }
 
             before :each do
-              assign(:attributarchy_configuration, {
+              helper.stub(:attributarchy_configuration).and_return({
                 country_and_state: [:country, :state],
                 without_rendering: {}
               })
@@ -109,7 +109,7 @@ module Attributarchy
             let(:expected_output) { html_tidy(File.read(File.join(attributarchy_view_path, 'two_attributarchies_without_rendering_country.html'))) }
 
             before :each do
-              assign(:attributarchy_configuration, {
+              helper.stub(:attributarchy_configuration).and_return({
                 country_and_state: [:country, :state],
                 without_rendering: { country: nil }
               })
@@ -150,7 +150,7 @@ module Attributarchy
           }
 
           before :each do
-            assign(:attributarchy_configuration, {
+            helper.stub(:attributarchy_configuration).and_return({
               country: [:country],
               country_and_state: [:country, :state],
               without_rendering: {}
@@ -206,7 +206,7 @@ module Attributarchy
           let(:expected_output) { html_tidy(File.read(File.join(lookup_path, 'one_attributarchy.html'))) }
 
           before :each do
-            assign(:attributarchy_configuration, {
+            helper.stub(:attributarchy_configuration).and_return({
               country: [:country],
               without_rendering: {}
             })

@@ -5,6 +5,11 @@ module Attributarchy
     included do
       class_attribute :attributarchy_configuration
       helper_method :build_attributarchy
+      helper_method :attributarchy_configuration
+    end
+
+    def attributarchy_configuration
+      self.attributarchy_configuration
     end
 
     module ClassMethods
