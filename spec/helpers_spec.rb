@@ -59,11 +59,11 @@ module Attributarchy
           it_behaves_like 'an attributarchy'
 
           it 'should have one country attributarchy' do
-            expect(output).to have_tag('div.country-container', count: 1)
+            expect(output).to have_tag('div.country-attributarchy', count: 1)
           end
 
           it 'should have no state attributarchies' do
-            expect(output).to_not have_tag('div.state-container')
+            expect(output).to_not have_tag('div.state-attributarchy')
           end
 
           it 'renders one attributarchy' do
@@ -90,12 +90,12 @@ module Attributarchy
             it_behaves_like 'an attributarchy'
 
             it 'should have one country attributarchy' do
-              expect(output).to have_tag('div.country-container', count: 1)
+              expect(output).to have_tag('div.country-attributarchy', count: 1)
             end
 
             it 'should have three state attributarchies within the country' do
-              expect(output).to have_tag('div.country-container') do
-                with_tag('div.state-container', count: 3)
+              expect(output).to have_tag('div.country-attributarchy') do
+                with_tag('div.state-attributarchy', count: 3)
               end
             end
 
@@ -121,13 +121,13 @@ module Attributarchy
             it_behaves_like 'an attributarchy'
 
             it 'should have one country attributarchy but no country content' do
-              expect(output).to have_tag('div.country-container', count: 1)
+              expect(output).to have_tag('div.country-attributarchy', count: 1)
               expect(output).to_not have_tag('section.country')
             end
 
             it 'should have three state attributarchies within the country' do
-              expect(output).to have_tag('div.country-container') do
-                with_tag('div.state-container', count: 3)
+              expect(output).to have_tag('div.country-attributarchy') do
+                with_tag('div.state-attributarchy', count: 3)
               end
             end
 
@@ -168,20 +168,20 @@ module Attributarchy
           end
 
           it 'should have one country in the first attributarchy' do
-            expect(output).to have_tag('div.attributarchy:nth-child(1) div.country-container', count: 1)
+            expect(output).to have_tag('div.attributarchy:nth-child(1) div.country-attributarchy', count: 1)
           end
 
           it 'should have no states in the first attributarchy' do
-            expect(output).to_not have_tag('div.attributarchy:nth-child(1) div.state-container')
+            expect(output).to_not have_tag('div.attributarchy:nth-child(1) div.state-attributarchy')
           end
 
           it 'should have one country in the second attributarchy' do
-            expect(output).to have_tag('div.attributarchy:nth-child(2) div.country-container', count: 1)
+            expect(output).to have_tag('div.attributarchy:nth-child(2) div.country-attributarchy', count: 1)
           end
 
           it 'should have three states in the second attributarchy' do
-            expect(output).to have_tag('div.attributarchy:nth-child(2) div.country-container') do
-              with_tag('div.state-container', count: 3)
+            expect(output).to have_tag('div.attributarchy:nth-child(2) div.country-attributarchy') do
+              with_tag('div.state-attributarchy', count: 3)
             end
           end
 
@@ -219,11 +219,11 @@ module Attributarchy
           it_behaves_like 'an attributarchy'
 
           it 'should have one country attributarchy' do
-            expect(output).to have_tag('div.country-container', count: 1)
+            expect(output).to have_tag('div.country-attributarchy', count: 1)
           end
 
           it 'should have no state attributarchies' do
-            expect(output).to_not have_tag('div.state-container')
+            expect(output).to_not have_tag('div.state-attributarchy')
           end
         end
       end

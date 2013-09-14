@@ -5,7 +5,7 @@ module Attributarchy
       output = %{<div class="attributarchy">} if level_index == 0 # Outermost wrapper
       current_level = attributarchy_configuration[name][level_index]
       data.group_by(&current_level).each_with_index do |(group_value, group_data), index|
-        output << %{<div class="#{current_level}-container">}
+        output << %{<div class="#{current_level}-attributarchy">}
         unless attributarchy_configuration[:without_rendering].has_key?(current_level)
           output << (
             # TODO: / desired?
