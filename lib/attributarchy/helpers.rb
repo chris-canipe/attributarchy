@@ -9,7 +9,7 @@ module Attributarchy
         unless attributarchy_configuration[:without_rendering].has_key?(current_level)
           output << (
             # TODO: / desired?
-            render partial: "/#{current_level}", locals: {
+            render_to_string partial: "/#{current_level}", locals: {
               group_data: group_data,
               group_value: group_value,
               group_level: level_index

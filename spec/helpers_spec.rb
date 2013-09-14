@@ -24,11 +24,11 @@ module Attributarchy
 
       context 'when a partial is missing' do
         it 'should throw an ActionView::MissingTemplate exception' do
-          helper.stub(:attributarchy_configuration).and_return({
+          subject.stub(:attributarchy_configuration).and_return({
             country: [:country],
             without_rendering: {}
           })
-          expect{ helper.build_attributarchy(:country, data) }.to raise_error ActionView::MissingTemplate
+          expect{ subject.build_attributarchy(:country, data) }.to raise_error ActionView::MissingTemplate
         end
       end
 
@@ -40,17 +40,17 @@ module Attributarchy
           Dir.glob('spec/fixtures/*/*') do |f|
             FileUtils.cp f, File.join(attributarchy_view_path, File.basename(f))
           end
-          helper.controller.prepend_view_path(attributarchy_view_path)
+          subject.prepend_view_path(attributarchy_view_path)
         end
 
         context 'with one attributarchy (country)' do
 
-          let(:output) { helper.build_attributarchy(:country, data) }
+          let(:output) { subject.build_attributarchy(:country, data) }
           let(:tidied_output) { html_tidy(output) }
           let(:tidied_expected_output) { html_tidy(File.read(File.join(attributarchy_view_path, 'one_attributarchy.html'))) }
 
           before :each do
-            helper.stub(:attributarchy_configuration).and_return({
+            subject.stub(:attributarchy_configuration).and_return({
               country: [:country],
               without_rendering: {}
             })
@@ -76,12 +76,12 @@ module Attributarchy
 
           context 'when all attributarchies are rendered' do
 
-            let(:output) { helper.build_attributarchy(:country_and_state, data) }
+            let(:output) { subject.build_attributarchy(:country_and_state, data) }
             let(:tidied_output) { html_tidy(output) }
             let(:tidied_expected_output) { html_tidy(File.read(File.join(attributarchy_view_path, 'two_attributarchies.html'))) }
 
             before :each do
-              helper.stub(:attributarchy_configuration).and_return({
+              subject.stub(:attributarchy_configuration).and_return({
                 country_and_state: [:country, :state],
                 without_rendering: {}
               })
@@ -107,12 +107,12 @@ module Attributarchy
 
           context 'when an attributarchy has a group-only attribute' do
 
-            let(:output) { helper.build_attributarchy(:country_and_state, data) }
+            let(:output) { subject.build_attributarchy(:country_and_state, data) }
             let(:tidied_output) { html_tidy(output) }
             let(:tidied_expected_output) { html_tidy(File.read(File.join(attributarchy_view_path, 'two_attributarchies_without_rendering_country.html'))) }
 
             before :each do
-              helper.stub(:attributarchy_configuration).and_return({
+              subject.stub(:attributarchy_configuration).and_return({
                 country_and_state: [:country, :state],
                 without_rendering: { country: nil }
               })
@@ -142,8 +142,8 @@ module Attributarchy
         context 'with two attributarchies back-to-back (country; country, state)' do
 
           let(:output) {
-            helper.build_attributarchy(:country, data) +
-            helper.build_attributarchy(:country_and_state, data)
+            subject.build_attributarchy(:country, data) +
+            subject.build_attributarchy(:country_and_state, data)
           }
           let(:tidied_output) { html_tidy(output) }
           let(:tidied_expected_output) {
@@ -154,7 +154,7 @@ module Attributarchy
           }
 
           before :each do
-            helper.stub(:attributarchy_configuration).and_return({
+            subject.stub(:attributarchy_configuration).and_return({
               country: [:country],
               country_and_state: [:country, :state],
               without_rendering: {}
@@ -201,16 +201,16 @@ module Attributarchy
           Dir.glob('spec/fixtures/*/*') do |f|
             FileUtils.cp f, File.join(lookup_path, File.basename(f))
           end
-          helper.controller.prepend_view_path(lookup_path)
+          subject.prepend_view_path(lookup_path)
         end
 
         context 'with one attributarchy (country)' do
 
-          let(:output) { helper.build_attributarchy(:country, data) }
+          let(:output) { subject.build_attributarchy(:country, data) }
           let(:expected_output) { html_tidy(File.read(File.join(lookup_path, 'one_attributarchy.html'))) }
 
           before :each do
-            helper.stub(:attributarchy_configuration).and_return({
+            subject.stub(:attributarchy_configuration).and_return({
               country: [:country],
               without_rendering: {}
             })
