@@ -17,7 +17,7 @@ module Attributarchy
           )
         end
         if level_index < attributarchy_configuration[name].count - 1
-          output << build_attributarchy(name, data, level_index + 1)
+          output << build_attributarchy(name, group_data, level_index + 1)
         end
         output << '</div>'
       end
