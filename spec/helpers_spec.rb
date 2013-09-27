@@ -1,9 +1,5 @@
 require 'spec_helper'
 
-class DummyController < ActionController::Base
-  include Attributarchy
-end
-
 AttributarchyStruct = Struct.new(:country, :state, :city)
 
 module Attributarchy

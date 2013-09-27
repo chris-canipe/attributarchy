@@ -1,9 +1,5 @@
 require 'spec_helper'
 
-class DummyController < ActionController::Base
-  include Attributarchy
-end
-
 module Attributarchy
   describe ControllerMethods do
 

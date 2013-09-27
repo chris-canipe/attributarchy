@@ -50,3 +50,7 @@ RSpec.configure do |config|
     end
   end
 end
+
+class DummyController < ActionController::Base
+  include Attributarchy
+end
