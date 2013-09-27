@@ -3,7 +3,7 @@ require 'spec_helper'
 module Attributarchy
   describe ControllerMethods do
 
-    subject { DummyController }
+    subject { ControllerWithAttributarchy }
     let(:attributarchy_name) { :test_attributarchy }
     let(:valid_attributarchy) { [:attr1, :attr2, :attr3] }
     let(:attributarchy_view_path) { File.join(rails_view_path, subject.controller_name) }

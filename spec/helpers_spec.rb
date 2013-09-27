@@ -5,7 +5,7 @@ AttributarchyStruct = Struct.new(:country, :state, :city)
 module Attributarchy
   describe Helpers do
 
-    subject { DummyController.new }
+    subject { ControllerWithAttributarchy.new }
     let(:data) { [
       AttributarchyStruct.new('United States', 'Colorado', 'Denver'),
       AttributarchyStruct.new('United States', 'Colorado', 'Lakewood'),
