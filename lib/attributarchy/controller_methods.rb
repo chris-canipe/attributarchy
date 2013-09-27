@@ -33,10 +33,7 @@ module Attributarchy
           lookup_prefixes << additional_lookup_prefixes
         end
         lookup_prefixes.flatten!
-        lookup_paths = lookup_prefixes.map do |prefix|
-          File.join(::Rails.root, %w[app views], prefix)
-        end
-        prepend_view_path(lookup_paths)
+        prepend_view_path(lookup_prefixes)
         ### Group-only attributes that do not render (optional).
         without_rendering = {}
         if arguments.has_key?(:without_rendering)

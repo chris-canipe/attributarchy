@@ -8,7 +8,7 @@ module Helpers
   end
 
   def rails_view_path
-    File.join(::Rails.root, %w[app views])
+    File.expand_path('.')
   end
 
 end
