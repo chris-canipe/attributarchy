@@ -18,6 +18,10 @@ module Attributarchy
       expect(subject.new.view_context).to respond_to(:build_attributarchy)
     end
 
+    it 'defines the attributarchy_configuration helper' do
+      expect(subject.new.view_context).to respond_to(:attributarchy_configuration)
+    end
+
     describe '#has_attributarchy' do
 
       context 'when the arguments are invalid' do
