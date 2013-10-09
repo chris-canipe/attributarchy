@@ -40,7 +40,7 @@ module Attributarchy
           expect(subject.new.view_context.attributarchy_configuration[attributarchy_name]).to eq(valid_attributarchy)
         end
 
-        it "adds the default lookup path to the view paths (the controller's views)" do
+        it "adds the default lookup path (the controller's views) to the view path" do
           subject.has_attributarchy attributarchy_name, as: valid_attributarchy
           expect(view_paths).to include(attributarchy_view_path)
         end
