@@ -9,11 +9,6 @@ module Attributarchy
     let(:attributarchy_view_path) { File.join(rails_view_path, subject.controller_name) }
     let(:defined_view_paths) { subject.view_paths.to_a.map { |path| path.to_s } }
 
-    before :each do
-      # Prevent previous lookups from reporting a partial as non-existent.
-      ActionView::Resolver.caching = false
-    end
-
     it 'defines the build_attributarchy helper' do
       expect(subject.new.view_context).to respond_to(:build_attributarchy)
     end
