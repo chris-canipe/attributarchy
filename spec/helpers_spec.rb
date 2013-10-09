@@ -96,7 +96,7 @@ module Attributarchy
 
           end
 
-          context 'when an attributarchy has a group-only attribute' do
+          context 'when an attributarchy has a non-rendering attribute' do
 
             let(:output) { subject.build_attributarchy(:country_and_state, data) }
             let(:tidied_output) { html_tidy(output) }
