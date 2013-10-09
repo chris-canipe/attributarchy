@@ -1,18 +1,18 @@
 require 'spec_helper'
 
-AttributarchyStruct = Struct.new(:country, :state, :city)
+CountryStateCityStruct = Struct.new(:country, :state, :city)
 
 module Attributarchy
   describe Helpers do
 
     subject { ControllerWithAttributarchy.new }
     let(:data) { [
-      AttributarchyStruct.new('United States', 'Colorado', 'Denver'),
-      AttributarchyStruct.new('United States', 'Colorado', 'Lakewood'),
-      AttributarchyStruct.new('United States', 'Illinois', 'Chicago'),
-      AttributarchyStruct.new('United States', 'Illinois', 'Westmont'),
-      AttributarchyStruct.new('United States', 'North Carolina', 'Charlotte'),
-      AttributarchyStruct.new('United States', 'North Carolina', 'Asheville')
+      CountryStateCityStruct.new('United States', 'Colorado', 'Denver'),
+      CountryStateCityStruct.new('United States', 'Colorado', 'Lakewood'),
+      CountryStateCityStruct.new('United States', 'Illinois', 'Chicago'),
+      CountryStateCityStruct.new('United States', 'Illinois', 'Westmont'),
+      CountryStateCityStruct.new('United States', 'North Carolina', 'Charlotte'),
+      CountryStateCityStruct.new('United States', 'North Carolina', 'Asheville')
     ] }
     let(:attributarchy_view_path) { File.join(rails_view_path, subject.controller_name) }
 
