@@ -4,8 +4,12 @@ module Attributarchy
   describe ControllerMethods do
 
     subject { ControllerWithAttributarchy }
-    let(:attributarchy_name) { :test_attributarchy }
-    let(:valid_attributarchy) { [:attr1, :attr2, :attr3] }
+    let(:attributarchy_name) { :a_symbol }
+    let(:valid_attributarchy) {[
+      :a_symbol_representing_an_attribute,
+      :a_symbol_representing_another_attribute,
+      :a_symbol_representing_yet_another_attribute,
+    ]}
     let(:attributarchy_view_path) { File.join(rails_view_path, subject.controller_name) }
     let(:defined_view_paths) { subject.view_paths.to_a.map { |path| path.to_s } }
 
