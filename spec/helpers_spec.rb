@@ -38,7 +38,7 @@ module Attributarchy
 
           let(:output) { subject.build_attributarchy(:country, data) }
           let(:tidied_output) { html_tidy(output) }
-          let(:tidied_expected_output) { html_tidy(File.read(File.join(attributarchy_view_path, 'one_attributarchy.html'))) }
+          let(:tidied_expected_output) { html_tidy(fixture_content_of(attributarchy_view_path, 'one_attributarchy.html')) }
 
           before :each do
             subject.stub(:attributarchy_configuration).and_return({
@@ -69,7 +69,7 @@ module Attributarchy
 
             let(:output) { subject.build_attributarchy(:country_and_state, data) }
             let(:tidied_output) { html_tidy(output) }
-            let(:tidied_expected_output) { html_tidy(File.read(File.join(attributarchy_view_path, 'two_attributarchies.html'))) }
+            let(:tidied_expected_output) { html_tidy(fixture_content_of(attributarchy_view_path, 'two_attributarchies.html')) }
 
             before :each do
               subject.stub(:attributarchy_configuration).and_return({
@@ -100,7 +100,7 @@ module Attributarchy
 
             let(:output) { subject.build_attributarchy(:country_and_state, data) }
             let(:tidied_output) { html_tidy(output) }
-            let(:tidied_expected_output) { html_tidy(File.read(File.join(attributarchy_view_path, 'two_attributarchies_without_rendering_country.html'))) }
+            let(:tidied_expected_output) { html_tidy(fixture_content_of(attributarchy_view_path, 'two_attributarchies_without_rendering_country.html')) }
 
             before :each do
               subject.stub(:attributarchy_configuration).and_return({
@@ -139,8 +139,8 @@ module Attributarchy
           let(:tidied_output) { html_tidy(output) }
           let(:tidied_expected_output) {
             html_tidy(
-              File.read(File.join(attributarchy_view_path, 'one_attributarchy.html')) +
-              File.read(File.join(attributarchy_view_path, 'two_attributarchies.html'))
+              fixture_content_of(attributarchy_view_path, 'one_attributarchy.html') +
+              fixture_content_of(attributarchy_view_path, 'two_attributarchies.html')
             )
           }
 
@@ -193,7 +193,7 @@ module Attributarchy
         context 'with one attributarchy (country)' do
 
           let(:output) { subject.build_attributarchy(:country, data) }
-          let(:expected_output) { html_tidy(File.read(File.join(lookup_path, 'one_attributarchy.html'))) }
+          let(:expected_output) { html_tidy(fixture_content_of(lookup_path, 'one_attributarchy.html')) }
 
           before :each do
             subject.stub(:attributarchy_configuration).and_return({

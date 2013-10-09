@@ -7,6 +7,10 @@ module Helpers
       gsub(/\s+</, '<')
   end
 
+  def fixture_content_of(*path)
+    File.read(File.join(path))
+  end
+
   def load_fixtures_into(path)
     FileUtils.mkdir_p(path)
     FakeFS::FileSystem.clone('spec/fixtures')
