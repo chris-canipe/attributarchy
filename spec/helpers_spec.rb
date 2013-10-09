@@ -31,12 +31,7 @@ module Attributarchy
       context 'with the default lookup path' do
 
         before :each do
-          FileUtils.mkdir_p(attributarchy_view_path)
-          FakeFS::FileSystem.clone('spec/fixtures')
-          Dir.glob('spec/fixtures/*/*') do |f|
-            FileUtils.cp f, File.join(attributarchy_view_path, File.basename(f))
-          end
-          subject.prepend_view_path(attributarchy_view_path)
+          load_fixtures_into(attributarchy_view_path)
         end
 
         context 'with one attributarchy (country)' do
@@ -192,12 +187,7 @@ module Attributarchy
 
         before :each do
           lookup_path = File.join(attributarchy_view_path, 'lookup')
-          FileUtils.mkdir_p(lookup_path)
-          FakeFS::FileSystem.clone('spec/fixtures')
-          Dir.glob('spec/fixtures/*/*') do |f|
-            FileUtils.cp f, File.join(lookup_path, File.basename(f))
-          end
-          subject.prepend_view_path(lookup_path)
+          load_fixtures_into(lookup_path)
         end
 
         context 'with one attributarchy (country)' do
