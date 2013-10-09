@@ -35,13 +35,9 @@ module Attributarchy
         let(:view_paths) { subject.view_paths.to_a.map { |path| path.to_s } }
 
         it 'sets the attributarchy' do
-          expected_configuration = {
-            attributarchy_name => valid_attributarchy,
-            without_rendering: {}
-          }
           subject.has_attributarchy attributarchy_name, as: valid_attributarchy
-          expect(subject.attributarchy_configuration).to eq(expected_configuration)
-          expect(subject.new.view_context.attributarchy_configuration).to eq(expected_configuration)
+          expect(subject.attributarchy_configuration[attributarchy_name]).to eq(valid_attributarchy)
+          expect(subject.new.view_context.attributarchy_configuration[attributarchy_name]).to eq(valid_attributarchy)
         end
 
         it "adds the default lookup path to the view paths (the controller's views)" do
