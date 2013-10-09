@@ -64,18 +64,13 @@ module Attributarchy
 
         context 'when a lookup path is specified' do
           it 'accepts a string' do
-            expect {
-              subject.has_attributarchy attributarchy_name, as: valid_attributarchy, in: 'path'
-            }.to_not raise_error
+            subject.has_attributarchy attributarchy_name, as: valid_attributarchy, in: 'path'
             expect(view_paths).to include(File.join(rails_view_path, 'path'))
           end
           it 'accepts an array' do
-            expect {
-              subject.has_attributarchy attributarchy_name, as: valid_attributarchy, in: ['path']
-            }.to_not raise_error
+            subject.has_attributarchy attributarchy_name, as: valid_attributarchy, in: ['path']
             expect(view_paths).to include(File.join(rails_view_path, 'path'))
           end
-
         end
       end
     end
