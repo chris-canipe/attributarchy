@@ -45,18 +45,20 @@ module Attributarchy
           expect(view_paths).to include(attributarchy_view_path)
         end
 
-        context 'when an attributarchy has group-only attributes' do
-          it 'accepts a symbol' do
-            expect {
-              subject.has_attributarchy attributarchy_name, as: [:no_partial], without_rendering: :no_partial
-            }.to_not raise_error
-            expect(subject.attributarchy_configuration[:without_rendering]).to include(no_partial: nil)
+        context 'when a non-rendering attribute is specified as a symbol' do
+          it 'defines the attribute as non-rendering' do
+            subject.has_attributarchy attributarchy_name,
+              as: [:do_not_render], without_rendering: :do_not_render
+            expect(subject.attributarchy_configuration[:without_rendering]).to include(:do_not_render)
           end
-          it 'accepts an array' do
-            expect {
-              subject.has_attributarchy attributarchy_name, as: [:no_partial], without_rendering: [:no_partial]
-            }.to_not raise_error
-            expect(subject.attributarchy_configuration[:without_rendering]).to include(no_partial: nil)
+        end
+
+        context 'when non-rendering attributes are specified as an array' do
+          it 'defines the attributes as non-rendering' do
+            subject.has_attributarchy attributarchy_name,
+              as: [:do_not_render, :do_not_render_either], without_rendering: [:do_not_render, :do_not_render_either]
+            expect(subject.attributarchy_configuration[:without_rendering]).to include(:do_not_render)
+            expect(subject.attributarchy_configuration[:without_rendering]).to include(:do_not_render_either)
           end
         end
 
