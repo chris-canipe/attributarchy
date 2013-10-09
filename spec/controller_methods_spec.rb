@@ -10,8 +10,6 @@ module Attributarchy
       :a_symbol_representing_another_attribute,
       :a_symbol_representing_yet_another_attribute,
     ]}
-    let(:attributarchy_view_path) { File.join(rails_view_path, subject.controller_name) }
-    let(:defined_view_paths) { subject.view_paths.to_a.map { |path| path.to_s } }
 
     it 'defines the build_attributarchy helper' do
       expect(subject.new.view_context).to respond_to(:build_attributarchy)
@@ -33,6 +31,8 @@ module Attributarchy
       end
 
       context 'when the arguments are valid' do
+        let(:attributarchy_view_path) { File.join(rails_view_path, subject.controller_name) }
+        let(:view_paths) { subject.view_paths.to_a.map { |path| path.to_s } }
 
         it 'sets the attributarchy' do
           expected_configuration = {
@@ -46,7 +46,7 @@ module Attributarchy
 
         it "adds the default lookup path to the view paths (the controller's views)" do
           subject.has_attributarchy attributarchy_name, as: valid_attributarchy
-          expect(defined_view_paths).to include(attributarchy_view_path)
+          expect(view_paths).to include(attributarchy_view_path)
         end
 
         context 'when an attributarchy has group-only attributes' do
@@ -69,13 +69,13 @@ module Attributarchy
             expect {
               subject.has_attributarchy attributarchy_name, as: valid_attributarchy, in: 'path'
             }.to_not raise_error
-            expect(defined_view_paths).to include(File.join(rails_view_path, 'path'))
+            expect(view_paths).to include(File.join(rails_view_path, 'path'))
           end
           it 'accepts an array' do
             expect {
               subject.has_attributarchy attributarchy_name, as: valid_attributarchy, in: ['path']
             }.to_not raise_error
-            expect(defined_view_paths).to include(File.join(rails_view_path, 'path'))
+            expect(view_paths).to include(File.join(rails_view_path, 'path'))
           end
 
         end
