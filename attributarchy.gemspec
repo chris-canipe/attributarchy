@@ -17,7 +17,11 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency 'rails', '~> 3.2.14'
   s.add_development_dependency 'rspec-rails', '~> 2.14.0'
-  s.add_development_dependency 'fakefs', '~> 0.4.2'
+  # This must be included safely (if you want to run the dummy server);
+  # therefore, it's in the Gemfile.
+  # See https://github.com/defunkt/fakefs/issues/200
+  #s.add_development_dependency 'fakefs', '~> 0.4.3'
+
   # Nokogiri was... difficult. Thanks to @Tekhne for this one:
   #
   #   Mac OS X 10.7 appears to load its own version of libxml2 (and dependencies)
