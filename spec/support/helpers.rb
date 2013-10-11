@@ -21,7 +21,7 @@ module Helpers
   end
 
   def rails_view_path
-    File.expand_path('.')
+    File.join(File.expand_path('.'), %w[app views])
   end
 
 end

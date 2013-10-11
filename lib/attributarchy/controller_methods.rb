@@ -33,6 +33,9 @@ module Attributarchy
           lookup_prefixes << additional_lookup_prefixes
         end
         lookup_prefixes.flatten!
+        lookup_prefixes.map! { |prefix|
+          prefix = "app/views/#{prefix}" unless prefix[0] == '/'
+        }
         prepend_view_path(lookup_prefixes)
         ### Group-only attributes that do not render (optional).
         without_rendering = {}
