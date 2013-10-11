@@ -55,7 +55,12 @@ Define a partial for all rendering attributes. The locals provided to these are:
   build_attributarchy(:name, data_set)
 ```
 
+## Working With Engines
 
-## TODO
+My knowledge is limited here, but to get this working in an engine you must specify the full lookup path for the engine, e.g.:
+````ruby
+````
 
-1. Allow configuration of the wrapping element and class.
+## Examples
+
+To see a simple example start the dummy rails app and hit its root.
