@@ -28,12 +28,16 @@ Dynamic, hierarchical views that allow you to easily dish out an array of layout
   include Attributarchy
 
   has_attributarchy \
-    # Required:
+    #----------#
+    # Required #
+    #----------#
       # Name it, as you can define multiple
       :name,
       # Specify an array of attributes that constitute the (?:attribut|hier)archy
       as: [:attribute, ...],
-    # Optional:
+    #----------#
+    # Optional #
+    #----------#
       # Specify an additional lookup path (as a string) or paths (as an array)
       in: %w[this_path that_path],
       # Specify an attribute (as a symbol) or attributes (as an array) that will
