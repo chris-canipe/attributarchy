@@ -1,3 +1,9 @@
+[![Version](http://allthebadges.io/epicyclist/attributarchy/badge_fury.png)](http://allthebadges.io/epicyclist/attributarchy/badge_fury)
+[![Dependencies](http://allthebadges.io/epicyclist/attributarchy/gemnasium.png)](http://allthebadges.io/epicyclist/attributarchy/gemnasium)
+[![Build Status](http://allthebadges.io/epicyclist/attributarchy/travis.png)](http://allthebadges.io/epicyclist/attributarchy/travis)
+[![Coverage](http://allthebadges.io/epicyclist/attributarchy/coveralls.png)](http://allthebadges.io/epicyclist/attributarchy/coveralls)
+[![Code Climate](http://allthebadges.io/epicyclist/attributarchy/code_climate.png)](http://allthebadges.io/epicyclist/attributarchy/code_climate)
+
 # Attributarchy
 
 An attribute-driven hierarchy builder for Rails views.
