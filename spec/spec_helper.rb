@@ -41,14 +41,6 @@ RSpec.configure do |config|
   config.include FakeFS::SpecHelpers
   config.include Helpers
 
-  # Per https://github.com/defunkt/fakefs/issues/137
-  config.before do
-    class ::FakeFS::File
-      def self.binread(file)
-        File.open(file, 'rb') { |f| f.read }
-      end
-    end
-  end
 end
 
 class ControllerWithAttributarchy < ActionController::Base
