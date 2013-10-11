@@ -57,10 +57,13 @@ Define a partial for all rendering attributes. The locals provided to these are:
 
 ## Working With Engines
 
-My knowledge is limited here, but to get this working in an engine you must specify the full lookup path for the engine, e.g.:
+My knowledge is limited here, but to get this working in an engine you must specify a full lookup path, e.g.:
 ````ruby
+  in: "#{YourEngine::Engine.root}/app/views/your_engine/..."
 ````
+
+I believe this is the only way to do this short of converting the gem to a rail tie, but I'm not positive. Besides, I don't want Attributarchy included in *every* controller anyway &mdash; it seems quite specialized.
 
 ## Examples
 
-To see a simple example start the dummy rails app and hit its root.
+To see a simple example, start the dummy rails app and hit its root.
