@@ -1,7 +1,7 @@
 [![Version](http://allthebadges.io/epicyclist/attributarchy/badge_fury.png)](http://allthebadges.io/epicyclist/attributarchy/badge_fury)
 [![Dependency Status](https://gemnasium.com/epicyclist/attributarchy.png)](https://gemnasium.com/epicyclist/attributarchy)
 [![Build Status](https://travis-ci.org/epicyclist/attributarchy.png?branch=master)](https://travis-ci.org/epicyclist/attributarchy)
-[![Coverage](http://allthebadges.io/epicyclist/attributarchy/coveralls.png)](http://allthebadges.io/epicyclist/attributarchy/coveralls)
+[![Coverage Status](https://coveralls.io/repos/epicyclist/attributarchy/badge.png)](https://coveralls.io/r/epicyclist/attributarchy)
 [![Code Climate](http://allthebadges.io/epicyclist/attributarchy/code_climate.png)](http://allthebadges.io/epicyclist/attributarchy/code_climate)
 
 
