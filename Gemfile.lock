@@ -111,7 +111,7 @@ PLATFORMS
 
 DEPENDENCIES
   attributarchy!
-  fakefs (~> 0.4.2)
+  fakefs (~> 0.4.3)
   rails (~> 3.2.14)
   rspec-html-matchers (~> 0.4.3)
   rspec-rails (~> 2.14.0)
