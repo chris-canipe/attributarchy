@@ -1,4 +1,4 @@
-[![Version](http://allthebadges.io/epicyclist/attributarchy/badge_fury.png)](http://allthebadges.io/epicyclist/attributarchy/badge_fury)
+[![Gem Version](https://badge.fury.io/rb/attributarchy.png)](http://badge.fury.io/rb/attributarchy)
 [![Dependency Status](https://gemnasium.com/epicyclist/attributarchy.png)](https://gemnasium.com/epicyclist/attributarchy)
 [![Build Status](https://travis-ci.org/epicyclist/attributarchy.png?branch=master)](https://travis-ci.org/epicyclist/attributarchy)
 [![Coverage Status](https://coveralls.io/repos/epicyclist/attributarchy/badge.png)](https://coveralls.io/r/epicyclist/attributarchy)
