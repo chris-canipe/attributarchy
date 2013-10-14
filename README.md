@@ -52,9 +52,9 @@ An attribute-driven hierarchy builder for Rails views.
 
 In your controller's view directory (or another location configured via ``:in``), define a partial for all rendering attributes. The locals provided to these are:
 
-- **group_data** &mdash; The data set of the grouped-by attribute
-- **group_value** &mdash; The name of the grouped-by attribute
-- **group_level** &mdash; An integer representing the position of the grouping within the hierarchy
+- ``group_data`` &mdash; The data set of the grouped-by attribute
+- ``group_value`` &mdash; The name of the grouped-by attribute
+- ``group_level`` &mdash; An integer representing the position of the grouping within the hierarchy
 
 #### View [(example)](https://github.com/epicyclist/attributarchy/blob/master/spec/dummy/app/views/examples/index.html.erb)
 
