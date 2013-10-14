@@ -13,7 +13,8 @@ An attribute-driven hierarchy builder for Rails views.
 
 1. Configure a hierarchy (or hierarchies) of attributes
 1. Create partials for each attribute that you want to render
-1. Feed this duo some data
+1. Style and/or bind JavaScript as desired
+1. Feed the attributarchy some data
 
 **The result:** Dynamic, hierarchical views that allow you to easily dish out an array of layouts, styles, and behavior. All as simple or complex as you'd like.
 
