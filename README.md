@@ -9,27 +9,23 @@
 
 An attribute-driven hierarchy builder for Rails views.
 
-## The Idea
-
-**You do this:**
+## The Gist
 
 1. Configure a hierarchy (or hierarchies) of attributes
-1. Create partials for each attribute
+1. Create partials for each attribute that you want to render
 1. Feed this duo some data
 
-**And you get this:**
-
-Dynamic, hierarchical views that allow you to easily dish out an array of layouts, styles, and behavior. All as simple or complex as you'd like.
+**The result:** Dynamic, hierarchical views that allow you to easily dish out an array of layouts, styles, and behavior. All as simple or complex as you'd like.
 
 ## Usage
 
-##### In your Gemfile:
+#### Gemfile
 
 ```ruby
   gem 'attributarchy'
 ```
 
-##### In your controller:
+#### Controller
 
 ```ruby
   include Attributarchy
@@ -52,19 +48,23 @@ Dynamic, hierarchical views that allow you to easily dish out an array of layout
       without_rendering: [:a_no_show]
 ```
 
-##### In your controller's corresponding view directory (or another location configured via :in):
+#### Partials
 
-Define a partial for all rendering attributes. The locals provided to these are:
+In your controller's view directory (or another location configured via ``:in``), define a partial for all rendering attributes. The locals provided to these are:
 
-1. *group_data* -- The data set of the grouped-by attribute
-1. *group_value* -- The name of the grouped-by attribute
-1. *group_level* -- An integer representing the position of the grouping within the hierarchy
+- **group_data** &mdash; The data set of the grouped-by attribute
+- **group_value** &mdash; The name of the grouped-by attribute
+- **group_level** &mdash; An integer representing the position of the grouping within the hierarchy
 
-##### And, finally, in your view:
+#### View
 
 ```ruby
   build_attributarchy(:name, data_set)
 ```
+
+#### Assets
+
+The entire attributarchy will be wrapped in a ``div`` with the class "attributarchy" and each attributarchy will we wrapped in a ``div`` with the class of "*attribute*-attributarchy".
 
 ## Working With Engines
 
