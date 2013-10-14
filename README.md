@@ -25,7 +25,7 @@ An attribute-driven hierarchy builder for Rails views.
   gem 'attributarchy'
 ```
 
-#### Controller
+#### Controller [(example)](https://github.com/epicyclist/attributarchy/blob/master/spec/dummy/app/controllers/examples_controller.rb)
 
 ```ruby
   include Attributarchy
@@ -48,7 +48,7 @@ An attribute-driven hierarchy builder for Rails views.
       without_rendering: [:a_no_show]
 ```
 
-#### Partials
+#### Partials [(example)](https://github.com/epicyclist/attributarchy/tree/master/spec/dummy/app/views/examples)
 
 In your controller's view directory (or another location configured via ``:in``), define a partial for all rendering attributes. The locals provided to these are:
 
@@ -56,13 +56,13 @@ In your controller's view directory (or another location configured via ``:in``)
 - **group_value** &mdash; The name of the grouped-by attribute
 - **group_level** &mdash; An integer representing the position of the grouping within the hierarchy
 
-#### View
+#### View [(example)](https://github.com/epicyclist/attributarchy/blob/master/spec/dummy/app/views/examples/index.html.erb)
 
 ```ruby
   build_attributarchy(:name, data_set)
 ```
 
-#### Assets
+#### Assets [(example)](https://github.com/epicyclist/attributarchy/blob/master/spec/dummy/app/assets/stylesheets/application.css)
 
 The entire attributarchy will be wrapped in a ``div`` with the class "attributarchy" and each attributarchy will we wrapped in a ``div`` with the class of "*attribute*-attributarchy".
 
