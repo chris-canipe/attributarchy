@@ -65,7 +65,7 @@ In your controller's view directory (or another location configured via ``:in``)
 
 #### Assets [(example)](https://github.com/epicyclist/attributarchy/blob/master/spec/dummy/app/assets/stylesheets/application.css)
 
-The entire attributarchy will be wrapped in a ``div`` with the class "attributarchy" and each attributarchy will we wrapped in a ``div`` with the class of "*attribute*-attributarchy".
+The entire attributarchy will be wrapped in a ``div`` with the class "attributarchy" and each attributarchy will be wrapped in a ``div`` with the class of "*attribute*-attributarchy".
 
 ## Working With Engines
 
